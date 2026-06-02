@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - Cerrajería Las 3 J</title>
+    <meta name="description" content="Servicios profesionales de cerrajería. Apertura de puertas, cambio de cerraduras, duplicado de llaves y más.">
+    <meta name="keywords" content="servicios cerrajería, apertura puertas, cambio cerraduras, duplicado llaves">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+    
+    <!-- Font Awesome 6 - Iconos Premium -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<!-- Navbar Premium - Transparente con Scroll Dinámico -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <div class="nav-logo-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <div class="nav-logo-text">
+                <span class="logo-main">CERRAJERÍA LAS 3J</span>
+                <span class="logo-tagline">SEGURIDAD QUE TE DA TRANQUILIDAD</span>
+            </div>
+        </a>
+        
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link">Inicio</a></li>
+            <li><a href="servicios.html" class="nav-link active">Servicios</a></li>
+            <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+            <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            <li class="nav-menu-cta">
+                <a href="https://wa.me/573249610909" class="nav-menu-cta-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp 24/7
+                </a>
+            </li>
+            <li>
+                <a href="tel:+573249610909" class="nav-phone">
+                    <i class="fas fa-phone"></i>
+                    Llamar ahora
+                </a>
+            </li>
+        </ul>
+        
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" onclick="toggleMobileMenuInline()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Menú móvil fuera del navbar para evitar stacking context -->
+<ul class="nav-menu-mobile" id="navMenuMobile" style="display: none;">
+    <li class="mobile-menu-close">
+        <button class="mobile-menu-close-btn" onclick="toggleMobileMenuInline()">
+            <i class="fas fa-times"></i>
+        </button>
+    </li>
+    <li>
+        <a href="index.html" class="nav-link">
+            <span class="link-icon"><i class="fas fa-home"></i></span>
+            <span class="link-text">Inicio</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="servicios.html" class="nav-link active">
+            <span class="link-icon"><i class="fas fa-tools"></i></span>
+            <span class="link-text">Servicios</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="nosotros.html" class="nav-link">
+            <span class="link-icon"><i class="fas fa-users"></i></span>
+            <span class="link-text">Nosotros</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="#contacto" class="nav-link">
+            <span class="link-icon"><i class="fas fa-envelope"></i></span>
+            <span class="link-text">Contacto</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li class="nav-menu-cta">
+        <a href="https://wa.me/573249610909" class="nav-menu-cta-btn">
+            <span class="link-icon"><i class="fab fa-whatsapp"></i></span>
+            <span class="link-text">WhatsApp 24/7</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="tel:+573249610909" class="nav-phone">
+            <span class="link-icon"><i class="fas fa-phone"></i></span>
+            <span class="link-text">Llamar ahora</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+</ul>
+
+<!-- Overlay oscuro para menú móvil -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+<!-- SERVICIOS DESTACADOS - REDISEÑO PREMIUM -->
+<section class="services-featured-section" id="servicios-destacados">
+    <div class="container">
+        <!-- Hero de Servicio Principal -->
+        <div class="service-hero-grid">
+            <div class="service-hero-left">
+                <div class="service-hero-badge">Servicio destacado</div>
+                <h2 class="service-hero-title">APERTURA DE PUERTAS 24/7</h2>
+                <p class="service-hero-description">
+                    Servicio de apertura de puertas disponible las 24 horas del día, los 7 días de la semana. Atendemos emergencias en hogares, negocios y vehículos con tiempos de respuesta garantizados.
+                </p>
+                <div class="service-benefits-list">
+                    <div class="service-benefit-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Atención inmediata</span>
+                    </div>
+                    <div class="service-benefit-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Técnicos especializados</span>
+                    </div>
+                    <div class="service-benefit-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Apertura sin daños</span>
+                    </div>
+                    <div class="service-benefit-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Servicio disponible 24/7</span>
+                    </div>
+                </div>
+                <div class="service-hero-actions">
+                    <a href="#contacto" class="service-cta-primary">Solicitar asistencia inmediata</a>
+                    <a href="tel:+573249610909" class="service-cta-secondary">Llamar ahora</a>
+                </div>
+            </div>
+            <div class="service-hero-right">
+                <div class="service-hero-image">
+                    <img src="img/apertura.jpg" alt="Apertura de puertas 24/7" class="service-hero-img" loading="lazy" width="600" height="400">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Servicios Complementarios -->
+        <div class="services-complementary-grid">
+            <div class="complementary-service-card">
+                <div class="complementary-service-image">
+                    <img src="img/cerraduras.jpg" alt="Cambio de cerraduras" class="complementary-img" loading="lazy" width="400" height="300">
+                </div>
+                <div class="complementary-service-content">
+                    <div class="complementary-service-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="complementary-service-title">Cambio de cerraduras</h3>
+                    <p class="complementary-service-description">
+                        Instalación y reemplazo de cerraduras de alta seguridad para hogares y negocios.
+                    </p>
+                    <a href="#contacto" class="complementary-service-cta">Ver más</a>
+                </div>
+            </div>
+            <div class="complementary-service-card">
+                <div class="complementary-service-image">
+                    <img src="img/duplicado.jpg" alt="Duplicado de llaves" class="complementary-img" loading="lazy" width="400" height="300">
+                </div>
+                <div class="complementary-service-content">
+                    <div class="complementary-service-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3 class="complementary-service-title">Duplicado de llaves</h3>
+                    <p class="complementary-service-description">
+                        Duplicación de llaves con precisión y garantía de funcionamiento perfecto.
+                    </p>
+                    <a href="#contacto" class="complementary-service-cta">Ver más</a>
+                </div>
+            </div>
+            <div class="complementary-service-card">
+                <div class="complementary-service-image">
+                    <img src="img/carros.jpg" alt="Cerrajería automotriz" class="complementary-img" loading="lazy" width="400" height="300">
+                </div>
+                <div class="complementary-service-content">
+                    <div class="complementary-service-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3 class="complementary-service-title">Cerrajería automotriz</h3>
+                    <p class="complementary-service-description">
+                        Servicios especializados para vehículos de todas las marcas y modelos.
+                    </p>
+                    <a href="#contacto" class="complementary-service-cta">Ver más</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Banda de Confianza -->
+        <div class="services-trust-band">
+            <div class="trust-item">
+                <div class="trust-number">10+</div>
+                <div class="trust-label">Años de experiencia</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-number">1000+</div>
+                <div class="trust-label">Clientes satisfechos</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-number">24/7</div>
+                <div class="trust-label">Atención</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-number">100%</div>
+                <div class="trust-label">Garantía de servicio</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICIOS DESTACADOS - DISEÑO PREMIUM HORIZONTAL -->
+<section class="premium-services-section" id="servicios-premium">
+    <div class="container">
+        <!-- Encabezado Centrado -->
+        <div class="premium-services-header">
+            <div class="services-badge">
+                <i class="fas fa-star"></i>
+                NUESTROS SERVICIOS
+            </div>
+            <h2 class="services-title">Nuestros Servicios</h2>
+            <div class="services-divider">
+                <div class="divider-line"></div>
+                <div class="divider-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="divider-line"></div>
+            </div>
+            <p class="services-subtitle">Soluciones profesionales de cerrajería con tecnología avanzada y atención inmediata</p>
+        </div>
+        
+        <!-- Tarjetas Horizontales -->
+        <div class="premium-services-list">
+            <!-- Tarjeta 1: Cerrajería Automotriz -->
+            <div class="premium-service-card">
+                <div class="service-card-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="service-card-content">
+                    <div class="service-card-image">
+                        <img src="img/carros.jpg" alt="Cerrajería Automotriz" loading="lazy" width="400" height="300">
+                    </div>
+                    <div class="service-card-text">
+                        <h3 class="service-card-title">Cerrajería Automotriz</h3>
+                        <p class="service-card-description">
+                            Especialistas en vehículos modernos con herramientas de última generación para apertura sin daños.
+                        </p>
+                        <ul class="service-card-features">
+                            <li><i class="fas fa-check"></i> Herramientas modernas</li>
+                            <li><i class="fas fa-check"></i> Sin daños al vehículo</li>
+                            <li><i class="fas fa-check"></i> Todas las marcas</li>
+                        </ul>
+                        <a href="#contacto" class="service-card-btn">
+                            Solicitar servicio <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tarjeta 2: Emergencias 24 Horas -->
+            <div class="premium-service-card">
+                <div class="service-card-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="service-card-content">
+                    <div class="service-card-image">
+                        <img src="img/apertura.jpg" alt="Emergencias 24 Horas" loading="lazy" width="400" height="300">
+                    </div>
+                    <div class="service-card-text">
+                        <h3 class="service-card-title">Emergencias 24 Horas</h3>
+                        <p class="service-card-description">
+                            Atención inmediata para situaciones urgentes las 24 horas del día, todos los días del año.
+                        </p>
+                        <ul class="service-card-features">
+                            <li><i class="fas fa-check"></i> Respuesta inmediata</li>
+                            <li><i class="fas fa-check"></i> Disponibilidad total</li>
+                            <li><i class="fas fa-check"></i> Servicio urgente</li>
+                        </ul>
+                        <a href="#contacto" class="service-card-btn">
+                            Solicitar servicio <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- COBERTURA Y ATENCIÓN INMEDIATA - DISEÑO SaaS PREMIUM -->
+<section class="coverage-saas-premium" id="cobertura">
+    <div class="container">
+        <!-- Encabezado Premium con Degradado -->
+        <div class="coverage-header-saas">
+            <div class="coverage-badge-saas">
+                <i class="fas fa-satellite-dish"></i>
+                COBERTURA
+            </div>
+            <h2 class="coverage-title-saas">
+                Cobertura y <span class="gradient-orange">atención inmediata</span>
+            </h2>
+            <p class="coverage-subtitle-saas">
+                Llegamos rápidamente a cualquier punto de la ciudad, 24/7.
+            </p>
+        </div>
+        
+        <!-- Grid Principal Tecnológico -->
+        <div class="coverage-tech-grid">
+            <!-- Mapa Futurista -->
+            <div class="tech-map-container">
+                <div class="map-futuristic">
+                    <div class="map-background-tech">
+                        <div class="tech-pattern"></div>
+                        <div class="map-grid-lines"></div>
+                        <canvas id="techCanvas" class="tech-canvas"></canvas>
+                    </div>
+                    <div class="map-central-security">
+                        <div class="security-pulse">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="pulse-ring"></div>
+                        <div class="pulse-ring-2"></div>
+                    </div>
+                    <div class="map-routes">
+                        <div class="route-line route-1"></div>
+                        <div class="route-line route-2"></div>
+                        <div class="route-line route-3"></div>
+                        <div class="route-line route-4"></div>
+                    </div>
+                    <div class="map-locations">
+                        <div class="location-point point-1">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="location-point point-2">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="location-point point-3">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="location-point point-4">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-tech-content">
+                    <h3 class="map-tech-title">Cobertura total</h3>
+                    <p class="map-tech-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Ibagué - Tolima
+                    </p>
+                    <p class="map-tech-description">
+                        Sistema de cobertura con rutas optimizadas y respuesta inmediata.
+                    </p>
+                    <div class="map-tech-badge">
+                        <i class="fas fa-satellite"></i>
+                        Cobertura urbana y rural
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cards Premium Derecha -->
+            <div class="tech-features-container">
+                <div class="tech-feature-card">
+                    <div class="tech-feature-header">
+                        <div class="tech-feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="tech-feature-content">
+                            <h4>Respuesta rápida</h4>
+                            <p>Llegamos en tiempo récord a cualquier ubicación.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-feature-card">
+                    <div class="tech-feature-header">
+                        <div class="tech-feature-icon">
+                            <i class="fas fa-infinity"></i>
+                        </div>
+                        <div class="tech-feature-content">
+                            <h4>Atención 24/7</h4>
+                            <p>Servicio continuo sin interrupciones.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-feature-card">
+                    <div class="tech-feature-header">
+                        <div class="tech-feature-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="tech-feature-content">
+                            <h4>Unidades móviles</h4>
+                            <p>Técnicos equipados listos para desplazarse.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-feature-card">
+                    <div class="tech-feature-header">
+                        <div class="tech-feature-icon">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <div class="tech-feature-content">
+                            <h4>Rutas optimizadas</h4>
+                            <p>Tiempos de llegada minimizados.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Zonas de Cobertura Premium -->
+        <div class="zones-tech-container">
+            <h3 class="zones-tech-title">Zonas de cobertura</h3>
+            <div class="zones-tech-pills">
+                <div class="zone-tech-pill">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Centro
+                </div>
+                <div class="zone-tech-pill">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Norte
+                </div>
+                <div class="zone-tech-pill">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Sur
+                </div>
+                <div class="zone-tech-pill">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Este
+                </div>
+                <div class="zone-tech-pill">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Oeste
+                </div>
+                <div class="zone-tech-pill">
+                    <i class="fas fa-industry"></i>
+                    Zona industrial
+                </div>
+                <div class="zone-tech-pill">
+                    <i class="fas fa-home"></i>
+                    Residencial
+                </div>
+                <div class="zone-tech-pill">
+                    <i class="fas fa-store"></i>
+                    Comercial
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BARRA PROMOCIONAL DE SEGURIDAD -->
+<section class="promo-bar-section" id="seguridad">
+    <div class="promo-bar-security">
+        <div class="promo-security-wrapper">
+            <div class="promo-security-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            
+            <div class="promo-security-content">
+                <div class="promo-security-main">
+                    <h2 class="promo-security-title">
+                        Protege lo que <span class="highlight-orange">más importa</span>
+                    </h2>
+                    <p class="promo-security-detail">
+                        <strong>Atención inmediata 24/7</strong> • Hogar, negocio o vehículo
+                    </p>
+                </div>
+                
+                <div class="promo-security-action">
+                    <a href="#contacto" class="promo-security-btn">
+                        Consultar ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SOLICITA TU SERVICIO -->
+<section class="service-request premium-request" id="contacto">
+    <div class="container">
+        <div class="premium-request-grid">
+            <div class="premium-request-left">
+                <h2>¿Necesitas ayuda inmediata?</h2>
+                <p>Completa el formulario y te contactaremos de inmediato para resolver tu emergencia.</p>
+                <div class="hero-actions">
+                    <a href="https://wa.me/573249610909" class="cta-primary">
+                        <i class="fab fa-whatsapp"></i> 
+                        WhatsApp 24/7
+                    </a>
+                    <a href="tel:+573249610909" class="cta-secondary">
+                        <i class="fas fa-phone"></i> 
+                        Llamar ahora
+                    </a>
+                </div>
+            </div>
+            <div class="glass-form-card">
+                <h3>Solicita tu servicio</h3>
+                <p>Completa el formulario y te contactaremos de inmediato.</p>
+                <form class="modern-form" id="serviceForm">
+                    <div class="double-fields">
+                        <input type="text" placeholder="Nombre completo" id="servicio-nombre" required>
+                        <input type="text" placeholder="Teléfono / WhatsApp" id="servicio-telefono" required>
+                    </div>
+                    <input type="email" placeholder="Correo electrónico" id="servicio-correo">
+                    <select id="servicio-tipo">
+                        <option value="">Servicio que necesitas</option>
+                        <option value="apertura">Apertura de puertas</option>
+                        <option value="cambio">Cambio de cerraduras</option>
+                        <option value="duplicado">Duplicado de llaves</option>
+                        <option value="automotriz">Cerrajería automotriz</option>
+                        <option value="seguridad">Instalación de seguridad</option>
+                        <option value="emergencia">Emergencia 24/7</option>
+                    </select>
+                    <textarea placeholder="Cuéntanos más detalles (opcional)" id="servicio-mensaje"></textarea>
+                    <button type="submit">ENVIAR SOLICITUD</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Botones Flotantes Premium -->
+<div class="floating-buttons-container">
+    <a href="tel:+573249610909" class="phone-float">
+        <i class="fas fa-phone"></i>
+    </a>
+    <a href="https://wa.me/573249610909" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</div>
+
+<!-- Footer con diseño glassmorphism -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="glass-footer-card">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <i class="fas fa-key"></i>
+                    <h3>Cerrajería Las 3 J</h3>
+                </div>
+                <p class="footer-description">
+                    Servicio profesional de cerrajería 24/7. Atención inmediata y garantizada.
+                </p>
+            </div>
+            
+            <div class="footer-links-section">
+                <div class="footer-column">
+                    <h4>Servicios</h4>
+                    <ul class="footer-links">
+                        <li><a href="#servicios-destacados"><i class="fas fa-chevron-right"></i> Apertura de puertas</a></li>
+                        <li><a href="#servicios-destacados"><i class="fas fa-chevron-right"></i> Cambio de cerraduras</a></li>
+                        <li><a href="#servicios-destacados"><i class="fas fa-chevron-right"></i> Duplicado de llaves</a></li>
+                        <li><a href="#servicios-destacados"><i class="fas fa-chevron-right"></i> Cerrajería automotriz</a></li>
+                        <li><a href="#servicios-destacados"><i class="fas fa-chevron-right"></i> Instalación de seguridad</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Empresa</h4>
+                    <ul class="footer-links">
+                        <li><a href="nosotros.html"><i class="fas fa-chevron-right"></i> Nosotros</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+                        <li><a href="#contacto"><i class="fas fa-chevron-right"></i> Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Contacto</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:+573249610909"><i class="fas fa-chevron-right"></i> Llamar ahora</a></li>
+                        <li><a href="https://wa.me/573249610909"><i class="fas fa-chevron-right"></i> WhatsApp</a></li>
+                        <li><a href="#contacto"><i class="fas fa-chevron-right"></i> Formulario</a></li>
+                        <li><a href="mailto:info@cerrajerialas3j.com"><i class="fas fa-chevron-right"></i> Correo</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-contact-row">
+                    <div class="footer-contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>324 961 0909</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp 24/7</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Disponible 24/7</span>
+                    </div>
+                </div>
+                <p>&copy; 2026 Cerrajería Las 3 J - Todos los derechos reservados</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+// Navbar Scroll Effect - Optimizado con requestAnimationFrame y throttling
+let ticking = false;
+window.addEventListener('scroll', function() {
+    if (!ticking) {
+        window.requestAnimationFrame(function() {
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            }
+            ticking = false;
+        });
+        ticking = true;
+    }
+}, { passive: true });
+
+
+// Service Form
+document.getElementById('serviceForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const nombre = document.getElementById('servicio-nombre').value;
+    const telefono = document.getElementById('servicio-telefono').value;
+    const correo = document.getElementById('servicio-correo').value;
+    const tipo = document.getElementById('servicio-tipo').value;
+    const mensaje = document.getElementById('servicio-mensaje').value;
+    
+    // Mapear tipo de servicio a texto legible
+    const servicioMap = {
+        'apertura': 'Apertura de Puertas',
+        'cambio': 'Cambio de Cerraduras',
+        'duplicado': 'Duplicado de Llaves',
+        'automotriz': 'Cerrajería Automotriz',
+        'seguridad': 'Instalación de Seguridad',
+        'emergencia': 'Emergencia 24/7',
+        '': 'Servicio General'
+    };
+    
+    const servicioTexto = servicioMap[tipo] || 'Servicio General';
+    
+    // Generar mensaje personalizado con formato solicitado
+    let whatsappMessage = `Hola, mi nombre es ${nombre}.\n\n`;
+    whatsappMessage += `Estoy interesado en el servicio:\n🔒 ${servicioTexto}\n\n`;
+    whatsappMessage += `📞 Teléfono: ${telefono}\n`;
+    if (correo) {
+        whatsappMessage += `📧 Correo: ${correo}\n`;
+    }
+    if (mensaje) {
+        whatsappMessage += `\n📝 Detalles:\n${mensaje}\n`;
+    }
+    whatsappMessage += `\nGracias, quedo atento a la información.`;
+    
+    // Open WhatsApp
+    window.open(`https://wa.me/573249610909?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+    
+    // Reset form
+    this.reset();
+});
+
+console.log('🚀 Página de Servicios - Cerrajería Las 3 J cargada exitosamente');
+</script>
+
+<!-- Modal de Detalles de Servicio -->
+<div class="service-modal-overlay" id="serviceModal">
+    <div class="service-modal-container">
+        <button class="service-modal-close" id="closeModal">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="service-modal-content">
+            <!-- Columna Izquierda - Imagen -->
+            <div class="service-modal-left">
+                <div class="service-modal-image-wrapper">
+                    <img src="" alt="" id="modalImage">
+                    <div class="service-modal-image-overlay"></div>
+                </div>
+            </div>
+            <!-- Columna Derecha - Contenido -->
+            <div class="service-modal-right">
+                <div class="service-modal-badge" id="modalBadge">Servicio Premium</div>
+                <div class="service-modal-icon" id="modalIcon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h2 class="service-modal-title" id="modalTitle">Título del Servicio</h2>
+                <p class="service-modal-subtitle" id="modalSubtitle">Subtítulo del servicio</p>
+                <p class="service-modal-description" id="modalDescription">
+                    Descripción del servicio...
+                </p>
+                
+                <!-- Ventajas -->
+                <div class="service-modal-advantages">
+                    <h4>Ventajas del servicio</h4>
+                    <div class="service-modal-benefits-grid" id="modalBenefits">
+                        <!-- Los beneficios se cargarán dinámicamente -->
+                    </div>
+                </div>
+                
+                <!-- Botones -->
+                <div class="service-modal-actions">
+                    <a href="#contacto" class="service-modal-cta-primary">
+                        <i class="fas fa-tools"></i>
+                        Solicitar Servicio
+                    </a>
+                    <a href="https://wa.me/573249610909" class="service-modal-cta-secondary">
+                        <i class="fab fa-whatsapp"></i>
+                        WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Datos de los servicios
+const servicesData = {
+    'apertura-puertas': {
+        title: 'Apertura de Puertas',
+        subtitle: 'Servicio 24/7',
+        icon: 'fa-door-open',
+        image: 'img/apertura.jpg',
+        badge: 'Servicio Premium',
+        description: 'Recupera el acceso a tu hogar, oficina o local comercial de forma rápida y segura. Nuestros técnicos utilizan herramientas especializadas para realizar aperturas sin causar daños innecesarios en cerraduras o puertas. Disponible las 24 horas para emergencias.',
+        benefits: [
+            'Apertura sin daños',
+            'Atención inmediata 24/7',
+            'Técnicos especializados',
+            'Servicio residencial y comercial'
+        ]
+    },
+    'cambio-cerraduras': {
+        title: 'Cambio de Cerraduras',
+        subtitle: 'Seguridad Avanzada',
+        icon: 'fa-lock',
+        image: 'img/cerraduras.jpg',
+        badge: 'Servicio Premium',
+        description: 'Mejora la seguridad de tu propiedad con la instalación y sustitución de cerraduras modernas y de alta calidad. Trabajamos con diferentes tipos de sistemas de seguridad para adaptarnos a las necesidades de cada cliente.',
+        benefits: [
+            'Cerraduras de alta seguridad',
+            'Instalación profesional',
+            'Asesoramiento personalizado',
+            'Mayor protección para tu hogar o negocio'
+        ]
+    },
+    'duplicado-llaves': {
+        title: 'Duplicado de Llaves',
+        subtitle: 'Precisión Garantizada',
+        icon: 'fa-key',
+        image: 'img/duplicado.jpg',
+        badge: 'Servicio Premium',
+        description: 'Realizamos copias precisas de llaves residenciales, comerciales y automotrices utilizando equipos modernos que garantizan un funcionamiento perfecto. Servicio rápido y confiable para cualquier necesidad.',
+        benefits: [
+            'Duplicado de alta precisión',
+            'Llaves residenciales y comerciales',
+            'Tecnología especializada',
+            'Entrega rápida'
+        ]
+    },
+    'cerrajeria-automotriz': {
+        title: 'Cerrajería Automotriz',
+        subtitle: 'Especialistas en Vehículos',
+        icon: 'fa-car',
+        image: 'img/carros.jpg',
+        badge: 'Servicio Premium',
+        description: 'Soluciones especializadas para vehículos nacionales e importados. Realizamos apertura de autos, programación de llaves, duplicados y asistencia en casos de pérdida o bloqueo, siempre con procedimientos seguros para proteger tu vehículo.',
+        benefits: [
+            'Apertura de vehículos sin daños',
+            'Programación de llaves y controles',
+            'Atención rápida en emergencias',
+            'Compatible con múltiples marcas'
+        ]
+    }
+};
+
+// Modal functionality
+const modal = document.getElementById('serviceModal');
+const closeModalBtn = document.getElementById('closeModal');
+let scrollPosition = 0;
+
+// Abrir modal con datos del servicio
+function openServiceModal(serviceKey) {
+    const service = servicesData[serviceKey];
+    if (!service) return;
+    
+    // Guardar posición del scroll
+    scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Guardar servicio seleccionado en sessionStorage
+    sessionStorage.setItem('selectedService', serviceKey);
+    
+    // Actualizar contenido del modal
+    document.getElementById('modalTitle').textContent = service.title;
+    document.getElementById('modalSubtitle').textContent = service.subtitle;
+    document.getElementById('modalBadge').textContent = service.badge;
+    document.getElementById('modalDescription').textContent = service.description;
+    document.getElementById('modalImage').src = service.image;
+    document.getElementById('modalImage').alt = service.title;
+    document.getElementById('modalIcon').innerHTML = `<i class="fas ${service.icon}"></i>`;
+    
+    // Actualizar beneficios como tarjetas
+    const benefitsGrid = document.getElementById('modalBenefits');
+    benefitsGrid.innerHTML = service.benefits.map(benefit => 
+        `<div class="benefit-card-item">
+            <i class="fas fa-check-circle"></i>
+            <span>${benefit}</span>
+        </div>`
+    ).join('');
+    
+    // Mostrar modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.style.width = '100%';
+}
+
+// Cerrar modal
+function closeServiceModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, scrollPosition);
+}
+
+// Event listeners
+closeModalBtn.addEventListener('click', closeServiceModal);
+
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        closeServiceModal();
+    }
+});
+
+// Cerrar con tecla Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeServiceModal();
+    }
+});
+
+// Agregar event listeners a los botones "Ver más"
+document.querySelectorAll('.complementary-service-cta').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const card = btn.closest('.complementary-service-card');
+        const title = card.querySelector('.complementary-service-title').textContent;
+        
+        // Determinar el servicio basado en el título
+        let serviceKey;
+        if (title.includes('Cambio de cerraduras')) {
+            serviceKey = 'cambio-cerraduras';
+        } else if (title.includes('Duplicado de llaves')) {
+            serviceKey = 'duplicado-llaves';
+        } else if (title.includes('Cerrajería automotriz')) {
+            serviceKey = 'cerrajeria-automotriz';
+        }
+        
+        if (serviceKey) {
+            openServiceModal(serviceKey);
+        }
+    });
+});
+
+// Agregar event listener al botón del hero principal
+const heroCtaBtn = document.querySelector('.service-cta-primary');
+if (heroCtaBtn) {
+    heroCtaBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openServiceModal('apertura-puertas');
+    });
+}
+
+// Agregar event listener al botón "Solicitar Servicio" del modal
+const modalCtaPrimary = document.querySelector('.service-modal-cta-primary');
+if (modalCtaPrimary) {
+    modalCtaPrimary.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Obtener el servicio seleccionado
+        const selectedService = sessionStorage.getItem('selectedService');
+        
+        // Mapeo de servicio a valor del select
+        const serviceMap = {
+            'apertura-puertas': 'apertura',
+            'cambio-cerraduras': 'cambio',
+            'duplicado-llaves': 'duplicado',
+            'cerrajeria-automotriz': 'automotriz'
+        };
+        
+        closeServiceModal();
+        
+        // Esperar a que el modal se cierre antes de navegar
+        setTimeout(() => {
+            const contactSection = document.querySelector('#contacto');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+                
+                // Rellenar el select con el servicio seleccionado
+                if (selectedService && serviceMap[selectedService]) {
+                    const serviceSelect = document.getElementById('servicio-tipo');
+                    if (serviceSelect) {
+                        serviceSelect.value = serviceMap[selectedService];
+                    }
+                }
+            }
+        }, 300);
+    });
+}
+
+// Agregar event listener al botón WhatsApp del modal
+const modalCtaSecondary = document.querySelector('.service-modal-cta-secondary');
+if (modalCtaSecondary) {
+    modalCtaSecondary.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Obtener el servicio seleccionado
+        const selectedService = sessionStorage.getItem('selectedService');
+        
+        // Generar mensaje personalizado según el servicio con formato solicitado
+        let whatsappMessage = 'Hola, estoy interesado en sus servicios. Me gustaría recibir más información y una cotización.';
+        
+        if (selectedService && servicesData[selectedService]) {
+            const serviceTitle = servicesData[selectedService].title;
+            whatsappMessage = `Hola, estoy interesado en el servicio:\n🔒 ${serviceTitle}\n\nMe gustaría recibir más información y una cotización.\n\nGracias, quedo atento a la información.`;
+        }
+        
+        // Cerrar modal
+        closeServiceModal();
+        
+        // Abrir WhatsApp con mensaje personalizado
+        setTimeout(() => {
+            window.open(`https://wa.me/573249610909?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+        }, 300);
+    });
+}
+</script>
+
+<!-- Función inline para menú móvil - Optimizada -->
+<script>
+// Optimización: Usar requestAnimationFrame para evitar reflows innecesarios
+let isMenuAnimating = false;
+let savedScrollY = 0;
+
+function toggleMobileMenuInline() {
+    if (isMenuAnimating) return;
+    isMenuAnimating = true;
+
+    requestAnimationFrame(() => {
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenuMobile = document.getElementById('navMenuMobile');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        
+        if (mobileMenuToggle && navMenuMobile) {
+            const isOpening = !navMenuMobile.classList.contains('active');
+            
+            mobileMenuToggle.classList.toggle('active');
+            navMenuMobile.classList.toggle('active');
+            document.body.classList.toggle('mobile-menu-open');
+            
+            // Mostrar/ocultar menú móvil
+            if (isOpening) {
+                navMenuMobile.style.display = 'flex';
+            } else {
+                navMenuMobile.style.display = 'none';
+            }
+            
+            // Activar/desactivar overlay
+            if (mobileMenuOverlay) {
+                mobileMenuOverlay.classList.toggle('active');
+            }
+            
+            // Bloquear scroll del body cuando el menú está abierto
+            if (isOpening) {
+                savedScrollY = window.scrollY;
+                document.body.style.overflow = 'hidden';
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${savedScrollY}px`;
+                document.body.style.width = '100%';
+            } else {
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                window.scrollTo(0, savedScrollY);
+            }
+        }
+        
+        isMenuAnimating = false;
+    });
+}
+
+// Optimización: Usar event delegation en lugar de múltiples listeners
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    const navMenuMobile = document.getElementById('navMenuMobile');
+    
+    // Cerrar menú al hacer click en el overlay
+    if (mobileMenuOverlay) {
+        mobileMenuOverlay.addEventListener('click', function(e) {
+            if (e.target === mobileMenuOverlay) {
+                toggleMobileMenuInline();
+            }
+        });
+    }
+    
+    // Event delegation para enlaces del menú móvil
+    if (navMenuMobile) {
+        navMenuMobile.addEventListener('click', function(e) {
+            const link = e.target.closest('.nav-link');
+            if (link && navMenuMobile.classList.contains('active')) {
+                // Si es un enlace interno (empieza con #), hacer smooth scroll
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        toggleMobileMenuInline();
+                        setTimeout(() => {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }, 300);
+                    }
+                } else {
+                    // Si es un enlace externo, dejar que funcione normalmente
+                    toggleMobileMenuInline();
+                }
+            }
+        });
+    }
+    
+    // Cerrar menú al presionar ESC - Optimizado con passive listener
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navMenuMobile && navMenuMobile.classList.contains('active')) {
+            toggleMobileMenuInline();
+        }
+    }, { passive: true });
+});
+</script>
+
+</body>
+</html>
