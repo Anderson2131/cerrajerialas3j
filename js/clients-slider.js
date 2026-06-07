@@ -153,56 +153,19 @@ class ClientsTestimonialSlider {
   }
 }
 
-// Animación Count-up para estadísticas - OPTIMIZADO: Simplificada para mejorar rendimiento
+// Animación Count-up para estadísticas - DESACTIVADA para evitar NaN y mejorar rendimiento
 class CountUpAnimation {
   constructor() {
-    this.statNumbers = document.querySelectorAll('.stat-saas-number');
-    this.init();
+    // Desactivado - números estáticos para evitar lag
+    return;
   }
 
   init() {
-    if (this.statNumbers.length === 0) return;
-
-    // Intersection Observer para activar animación cuando sea visible
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          this.animateNumber(entry.target);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    this.statNumbers.forEach(stat => observer.observe(stat));
+    return;
   }
 
   animateNumber(element) {
-    const target = parseFloat(element.dataset.target);
-    const duration = 1000; // Reducido de 2000ms a 1000ms
-    const start = performance.now();
-    const isDecimal = target % 1 !== 0;
-    const steps = 30; // Reducido para mejor rendimiento
-    const increment = target / steps;
-    let currentStep = 0;
-
-    const animate = () => {
-      currentStep++;
-      const current = increment * currentStep;
-      
-      if (isDecimal) {
-        element.textContent = current.toFixed(1);
-      } else {
-        element.textContent = Math.floor(current);
-      }
-      
-      if (currentStep < steps) {
-        setTimeout(() => requestAnimationFrame(animate), duration / steps);
-      } else {
-        element.textContent = isDecimal ? target.toFixed(1) : target;
-      }
-    };
-
-    animate();
+    return;
   }
 }
 

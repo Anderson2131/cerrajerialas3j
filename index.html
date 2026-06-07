@@ -121,71 +121,129 @@
 <!-- Overlay oscuro para menú móvil -->
 <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 
-<!-- Hero Section - Carrusel -->
-<section class="hero-carousel" id="inicio">
-    <div class="carousel-container">
-        <!-- Slides -->
-        <div class="carousel-track">
-            <!-- Slide 1 -->
-            <div class="carousel-slide active" data-slide="1">
-                <div class="slide-bg" style="background-image: url('img/baner1.jpg')"></div>
-                <div class="slide-overlay"></div>
-                <div class="slide-content">
-                    <div class="slide-text">
-                        <span class="badge">🔐 Expertos en Cerrajería</span>
-                        <h1>Cerrajería Las 3 J</h1>
-                        <p>Soluciones profesionales de seguridad con tecnología avanzada</p>
-                        <a href="#contacto" class="cta-button">Contactar Ahora</a>
+<!-- Hero Section Premium - Split Layout Cinematográfico -->
+<section class="hero-section-premium" id="inicio">
+    <!-- Cinematic Background Image - Bleed Effect -->
+    <div class="hero-cinematic-bg"></div>
+
+    <!-- Cinematic Gradient Overlay -->
+    <div class="hero-cinematic-overlay"></div>
+
+    <!-- Ambient Orange Glow -->
+    <div class="hero-cinematic-glow"></div>
+
+    <!-- Partículas de fondo -->
+    <div class="hero-particles">
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
+        <div class="particle particle-4"></div>
+        <div class="particle particle-5"></div>
+        <div class="particle particle-6"></div>
+        <div class="particle particle-7"></div>
+        <div class="particle particle-8"></div>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div class="hero-container">
+        <!-- Lado izquierdo - Contenido -->
+        <div class="hero-content-left">
+            <div class="hero-text-content">
+                <!-- Location Badge Premium -->
+                <div class="hero-location-badge">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>IBAGUÉ - TOLIMA</span>
+                </div>
+
+                <h1 class="hero-title">
+                    CERRAJERÍA LAS 3J
+                </h1>
+
+                <p class="hero-subtitle" style="margin-bottom: 2rem !important;">
+                   Protegemos lo más importante con atención rápida,
+                   <span class="highlight" style="color: #F59E0B !important; font-weight: 700 !important;">experiencia certificada y soluciones modernas de seguridad.</span>
+                </p>
+
+                <!-- Benefits Cards Grid -->
+                <div class="hero-benefits-grid">
+                    <div class="hero-benefit-card">
+                        <i class="fas fa-clock"></i>
+                        <span>Atención 24/7</span>
+                    </div>
+                    <div class="hero-benefit-card">
+                        <i class="fas fa-bolt"></i>
+                        <span>Llegamos rápido</span>
+                    </div>
+                    <div class="hero-benefit-card">
+                        <i class="fas fa-certificate"></i>
+                        <span>Técnicos certificados</span>
+                    </div>
+                    <div class="hero-benefit-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Servicio garantizado</span>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Slide 2 -->
-            <div class="carousel-slide" data-slide="2">
-                <div class="slide-bg" style="background-image: url('img/baner3.jpg')"></div>
-                <div class="slide-overlay"></div>
-                <div class="slide-content">
-                    <div class="slide-text">
-                        <span class="badge">🛡️ Seguridad Avanzada</span>
-                        <h1>Protección Total</h1>
-                        <p>Sistemas de última generación para proteger tu hogar y negocio</p>
-                        <a href="servicios.html" class="cta-button">Ver Servicios</a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 3 -->
-            <div class="carousel-slide" data-slide="3">
-                <div class="slide-bg" style="background-image: url('img/carros.jpg')"></div>
-                <div class="slide-overlay"></div>
-                <div class="slide-content">
-                    <div class="slide-text">
-                        <span class="badge">⏰ Disponible 24/7</span>
-                        <h1>Atención Inmediata</h1>
-                        <p>Apertura profesional de puertas sin daños, respuesta rápida</p>
-                        <a href="#contacto" class="cta-button">Llamar Ahora</a>
-                    </div>
+
+                <!-- CTA Buttons -->
+                <div class="hero-cta-group">
+                    <a href="tel:+573249610909" class="hero-cta-primary">
+                        <i class="fas fa-phone"></i>
+                        Solicitar Servicio
+                    </a>
+                    <a href="https://wa.me/573249610909" class="hero-cta-whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        WhatsApp
+                    </a>
                 </div>
             </div>
         </div>
-        
-        <!-- Navigation Buttons -->
-        <button class="carousel-nav prev" id="carouselPrev">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M15 18l-6-6 6-6"/>
-            </svg>
-        </button>
-        <button class="carousel-nav next" id="carouselNext">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 18l6-6-6-6"/>
-            </svg>
-        </button>
-        
-        <!-- Indicators -->
-        <div class="carousel-indicators">
-            <button class="indicator active" data-slide="1"></button>
-            <button class="indicator" data-slide="2"></button>
-            <button class="indicator" data-slide="3"></button>
+
+        <!-- Lado derecho - Espacio para imagen bleed -->
+        <div class="hero-content-right">
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-mouse">
+            <div class="scroll-wheel"></div>
+        </div>
+        <span class="scroll-text">Scroll</span>
+    </div>
+</section>
+
+<!-- Trust Section - Service Cards -->
+<section class="trust-section" id="servicios">
+    <div class="container">
+        <div class="trust-grid">
+            <div class="trust-card">
+                <div class="trust-icon">
+                    <i class="fas fa-door-open"></i>
+                </div>
+                <h3>Apertura de puertas</h3>
+                <p>Servicio 24/7 para emergencias</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <h3>Servicio automotriz</h3>
+                <p>Especialistas en vehículos</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3>Hogares y negocios</h3>
+                <p>Servicio integral</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3>Atención 24 horas</h3>
+                <p>Siempre disponibles</p>
+            </div>
         </div>
     </div>
 </section>
@@ -193,19 +251,6 @@
 <!-- RESULTADOS QUE RESPALDAN NUESTRO TRABAJO - DISEÑO SaaS PREMIUM -->
 <section class="results-saas-premium" id="resultados">
     <div class="results-background">
-        <div class="particles-container">
-            <div class="particle-result particle-1"></div>
-            <div class="particle-result particle-2"></div>
-            <div class="particle-result particle-3"></div>
-            <div class="particle-result particle-4"></div>
-            <div class="particle-result particle-5"></div>
-            <div class="particle-result particle-6"></div>
-        </div>
-        <div class="decorative-lines">
-            <div class="line line-1"></div>
-            <div class="line line-2"></div>
-            <div class="line line-3"></div>
-        </div>
     </div>
     
     <div class="container">
@@ -225,15 +270,13 @@
         
         <div class="results-grid-saas">
             <div class="result-saas-card result-blue">
-                <div class="result-glow-effect"></div>
                 <div class="result-icon-container">
                     <div class="result-icon-circle">
                         <i class="fas fa-users"></i>
                     </div>
-                    <div class="result-icon-glow"></div>
                 </div>
                 <div class="result-content-saas">
-                    <div class="result-number-saas" data-target="340">340</div>
+                    <div class="result-number-saas">340</div>
                     <div class="result-label-saas">Clientes Felices</div>
                     <div class="result-description-saas">Familias que confían plenamente</div>
                 </div>
@@ -241,15 +284,13 @@
             </div>
             
             <div class="result-saas-card result-orange">
-                <div class="result-glow-effect"></div>
                 <div class="result-icon-container">
                     <div class="result-icon-circle">
                         <i class="fas fa-wrench"></i>
                     </div>
-                    <div class="result-icon-glow"></div>
                 </div>
                 <div class="result-content-saas">
-                    <div class="result-number-saas" data-target="340">340</div>
+                    <div class="result-number-saas">340</div>
                     <div class="result-label-saas">Servicios Completados</div>
                     <div class="result-description-saas">Soluciones efectivas garantizadas</div>
                 </div>
@@ -257,12 +298,10 @@
             </div>
             
             <div class="result-saas-card result-purple">
-                <div class="result-glow-effect"></div>
                 <div class="result-icon-container">
                     <div class="result-icon-circle">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <div class="result-icon-glow"></div>
                 </div>
                 <div class="result-content-saas">
                     <div class="result-number-saas">10min</div>
@@ -273,12 +312,10 @@
             </div>
             
             <div class="result-saas-card result-cyan">
-                <div class="result-glow-effect"></div>
                 <div class="result-icon-container">
                     <div class="result-icon-circle">
                         <i class="fas fa-map-marked-alt"></i>
                     </div>
-                    <div class="result-icon-glow"></div>
                 </div>
                 <div class="result-content-saas">
                     <div class="result-number-saas">100%</div>
@@ -289,15 +326,13 @@
             </div>
             
             <div class="result-saas-card result-indigo">
-                <div class="result-glow-effect"></div>
                 <div class="result-icon-container">
                     <div class="result-icon-circle">
                         <i class="fas fa-award"></i>
                     </div>
-                    <div class="result-icon-glow"></div>
                 </div>
                 <div class="result-content-saas">
-                    <div class="result-number-saas" data-target="30">30</div>
+                    <div class="result-number-saas">30</div>
                     <div class="result-label-saas">Años Experiencia</div>
                     <div class="result-description-saas">Expertos certificados</div>
                 </div>
@@ -305,12 +340,10 @@
             </div>
             
             <div class="result-saas-card result-pink">
-                <div class="result-glow-effect"></div>
                 <div class="result-icon-container">
                     <div class="result-icon-circle">
                         <i class="fas fa-star"></i>
                     </div>
-                    <div class="result-icon-glow"></div>
                 </div>
                 <div class="result-content-saas">
                     <div class="result-number-saas">5.0</div>
@@ -392,7 +425,7 @@
             <div class="featured-client-saas">
                 <div class="featured-client-visual">
                     <div class="client-image-container">
-                        <img src="img/Nosotros.jpg" alt="Conjunto Residencial El Prado" class="featured-client-image" loading="lazy" width="600" height="400">
+                        <img src="img/Nosotros.webp" alt="Conjunto Residencial El Prado" class="featured-client-image" loading="lazy" width="600" height="400">
                         <div class="image-overlay-saas"></div>
                         <div class="client-verified-badge">
                             <i class="fas fa-check-circle"></i>
@@ -466,11 +499,10 @@
                         <i class="fas fa-percentage"></i>
                     </div>
                     <div class="stat-saas-content">
-                        <div class="stat-saas-number" data-target="95">0</div>
+                        <div class="stat-saas-number">95%</div>
                         <div class="stat-saas-label">Satisfacción</div>
                         <div class="stat-saas-sublabel">Clientes recurrentes</div>
                     </div>
-                    <div class="stat-saas-glow"></div>
                 </div>
                 
                 <div class="stat-saas-card">
@@ -478,11 +510,10 @@
                         <i class="fas fa-star"></i>
                     </div>
                     <div class="stat-saas-content">
-                        <div class="stat-saas-number" data-target="4.9">0.0</div>
+                        <div class="stat-saas-number">4.9</div>
                         <div class="stat-saas-label">Calificación</div>
                         <div class="stat-saas-sublabel">Promedio general</div>
                     </div>
-                    <div class="stat-saas-glow"></div>
                 </div>
                 
                 <div class="stat-saas-card">
@@ -490,11 +521,10 @@
                         <i class="fas fa-building"></i>
                     </div>
                     <div class="stat-saas-content">
-                        <div class="stat-saas-number" data-target="50">0</div>
+                        <div class="stat-saas-number">50</div>
                         <div class="stat-saas-label">Empresas</div>
                         <div class="stat-saas-sublabel">Confían en nosotros</div>
                     </div>
-                    <div class="stat-saas-glow"></div>
                 </div>
                 
                 <div class="stat-saas-card">
@@ -502,11 +532,10 @@
                         <i class="fas fa-users"></i>
                     </div>
                     <div class="stat-saas-content">
-                        <div class="stat-saas-number" data-target="500">0</div>
+                        <div class="stat-saas-number">500</div>
                         <div class="stat-saas-label">Clientes</div>
                         <div class="stat-saas-sublabel">Activos mensuales</div>
                     </div>
-                    <div class="stat-saas-glow"></div>
                 </div>
                 
                 <div class="stat-saas-card">
@@ -514,11 +543,10 @@
                         <i class="fas fa-clock"></i>
                     </div>
                     <div class="stat-saas-content">
-                        <div class="stat-saas-number" data-target="24">0</div>
+                        <div class="stat-saas-number">24</div>
                         <div class="stat-saas-label">Horas</div>
                         <div class="stat-saas-sublabel">Servicio continuo</div>
                     </div>
-                    <div class="stat-saas-glow"></div>
                 </div>
             </div>
         </div>
@@ -549,7 +577,7 @@
             <div class="testimonials-slider-saas">
                 <div class="testimonial-saas-card active">
                     <div class="testimonial-avatar">
-                        <img src="img/Usuario.png" alt="Juan M." class="avatar-image" loading="lazy" width="60" height="60">
+                        <img src="img/Usuario.webp" alt="Juan M." class="avatar-image" loading="lazy" width="60" height="60">
                         <div class="avatar-badge">
                             <i class="fas fa-check"></i>
                         </div>
@@ -577,7 +605,7 @@
                 
                 <div class="testimonial-saas-card">
                     <div class="testimonial-avatar">
-                        <img src="img/Usuario.png" alt="Laura C." class="avatar-image" loading="lazy" width="60" height="60">
+                        <img src="img/Usuario.webp" alt="Laura C." class="avatar-image" loading="lazy" width="60" height="60">
                         <div class="avatar-badge">
                             <i class="fas fa-check"></i>
                         </div>
@@ -605,7 +633,7 @@
                 
                 <div class="testimonial-saas-card">
                     <div class="testimonial-avatar">
-                        <img src="img/Usuario.png" alt="Diego R." class="avatar-image" loading="lazy" width="60" height="60">
+                        <img src="img/Usuario.webp" alt="Diego R." class="avatar-image" loading="lazy" width="60" height="60">
                         <div class="avatar-badge">
                             <i class="fas fa-check"></i>
                         </div>
@@ -1198,7 +1226,7 @@
                     </div>
                     <div class="footer-contact-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>Bogotá, Colombia</span>
+                        <span>Ibagué, Tolima</span>
                     </div>
                 </div>
                 <div class="footer-copyright">
@@ -1217,152 +1245,6 @@
     <script src="js/accordion-functionality.js" defer></script>
     <script src="js/navbar-scroll-enhancement.js" defer></script>
     <script src="js/clients-slider.js" defer></script>
-    
-    <!-- Professional Carousel JavaScript -->
-    <script>
-    class ProfessionalCarousel {
-        constructor() {
-            this.currentSlide = 1;
-            this.totalSlides = 3;
-            this.autoPlayInterval = null;
-            this.isAutoPlaying = false;
-            this.autoPlayDelay = 4500;
-            this.isPaused = false;
-            
-            this.slides = null;
-            this.indicators = null;
-            this.prevBtn = null;
-            this.nextBtn = null;
-            this.container = null;
-            
-            this.init();
-        }
-        
-        init() {
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => this.setupCarousel());
-            } else {
-                this.setupCarousel();
-            }
-        }
-        
-        setupCarousel() {
-            this.container = document.querySelector('.carousel-container');
-            this.slides = document.querySelectorAll('.carousel-slide');
-            this.indicators = document.querySelectorAll('.carousel-indicators .indicator');
-            this.prevBtn = document.getElementById('carouselPrev');
-            this.nextBtn = document.getElementById('carouselNext');
-            
-            if (!this.container || this.slides.length === 0) {
-                console.error('Carousel elements not found');
-                return;
-            }
-            
-            this.totalSlides = this.slides.length;
-            this.setupEventListeners();
-            this.showSlide(1);
-            this.startAutoPlay();
-        }
-        
-        setupEventListeners() {
-            if (this.prevBtn) {
-                this.prevBtn.addEventListener('click', () => this.prevSlide());
-            }
-            
-            if (this.nextBtn) {
-                this.nextBtn.addEventListener('click', () => this.nextSlide());
-            }
-            
-            this.indicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => this.goToSlide(index + 1));
-            });
-            
-            this.container.addEventListener('mouseenter', () => this.pauseAutoPlay());
-            this.container.addEventListener('mouseleave', () => this.resumeAutoPlay());
-        }
-        
-        showSlide(slideNumber) {
-            if (slideNumber < 1) slideNumber = this.totalSlides;
-            if (slideNumber > this.totalSlides) slideNumber = 1;
-            
-            this.currentSlide = slideNumber;
-            
-            this.slides.forEach(slide => slide.classList.remove('active'));
-            this.indicators.forEach(indicator => indicator.classList.remove('active'));
-            
-            const currentSlideElement = this.slides[slideNumber - 1];
-            const currentIndicator = this.indicators[slideNumber - 1];
-            
-            if (currentSlideElement) {
-                currentSlideElement.classList.add('active');
-            }
-            
-            if (currentIndicator) {
-                currentIndicator.classList.add('active');
-            }
-        }
-        
-        nextSlide() {
-            this.showSlide(this.currentSlide + 1);
-            this.resetAutoPlay();
-        }
-        
-        prevSlide() {
-            this.showSlide(this.currentSlide - 1);
-            this.resetAutoPlay();
-        }
-        
-        goToSlide(slideNumber) {
-            this.showSlide(slideNumber);
-            this.resetAutoPlay();
-        }
-        
-        startAutoPlay() {
-            if (this.isAutoPlaying) return;
-            
-            this.isAutoPlaying = true;
-            this.autoPlayInterval = setInterval(() => {
-                if (!this.isPaused) {
-                    this.nextSlide();
-                }
-            }, this.autoPlayDelay);
-        }
-        
-        pauseAutoPlay() {
-            this.isPaused = true;
-        }
-        
-        resumeAutoPlay() {
-            this.isPaused = false;
-        }
-        
-        stopAutoPlay() {
-            if (this.autoPlayInterval) {
-                clearInterval(this.autoPlayInterval);
-                this.autoPlayInterval = null;
-            }
-            this.isAutoPlaying = false;
-        }
-        
-        resetAutoPlay() {
-            this.stopAutoPlay();
-            this.startAutoPlay();
-        }
-        
-        destroy() {
-            this.stopAutoPlay();
-            this.slides = null;
-            this.indicators = null;
-            this.prevBtn = null;
-            this.nextBtn = null;
-            this.container = null;
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        new ProfessionalCarousel();
-    });
-    </script>
     
     <!-- Función inline para menú móvil - Optimizada -->
     <script>
