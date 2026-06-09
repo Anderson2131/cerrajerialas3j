@@ -87,18 +87,12 @@ class NavbarScrollEnhancement {
 
   addFastScrollGlow() {
     this.navbar.style.borderBottom = '1px solid rgba(217, 119, 6, 0.3)';
-    this.navbar.style.background = `
-      linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.95) 50%, rgba(51, 65, 85, 0.9) 100%),
-      rgba(255, 255, 255, 0.08)
-    `;
+    this.navbar.style.background = 'rgba(0, 0, 0, 0.85)';
   }
 
   removeFastScrollGlow() {
     this.navbar.style.borderBottom = '1px solid rgba(217, 119, 6, 0.15)';
-    this.navbar.style.background = `
-      linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.9) 50%, rgba(51, 65, 85, 0.85) 100%),
-      rgba(255, 255, 255, 0.05)
-    `;
+    this.navbar.style.background = 'rgba(0, 0, 0, 0.7)';
   }
 
   handleResize() {
