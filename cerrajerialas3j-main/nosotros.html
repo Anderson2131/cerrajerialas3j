@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerrajería Las 3J | Cerrajero 24 Horas en Ibagué | Apertura de Puertas y Autos</title>
+    <meta name="description" content="Cerrajería Las 3J en Ibagué. Apertura de puertas, cerrajería automotriz, cambio de cerraduras, duplicado de llaves y emergencias 24 horas. Atención rápida y profesional.">
+    <meta name="keywords" content="nosotros cerrajería, empresa cerrajería, experiencia cerrajería">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Cerrajería Las 3J - Cerrajero 24 Horas en Ibagué">
+    <meta property="og:description" content="Servicio profesional de cerrajería 24/7. Apertura de puertas, vehículos, hogares y negocios.">
+    <meta property="og:image" content="https://www.cerrajerialas3j.com/favicon-512.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+    <link rel="apple-touch-icon" href="/favicon-512.png">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+    
+    <!-- Font Awesome 6 - Iconos Premium -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<!-- Main Content Wrapper -->
+<div class="main-content-wrapper">
+
+<!-- Navbar Premium - Transparente con Scroll Dinámico -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <div class="nav-logo-icon nav-logo-icon-clickable" id="logoIconTrigger" title="Click para ver el logo">
+                <img src="img/logo.png" alt="Cerrajería Las 3J Logo" class="nav-logo-img">
+            </div>
+            <div class="nav-logo-text">
+                <span class="logo-main">CERRAJERÍA LAS 3J</span>
+                <span class="logo-tagline">SEGURIDAD QUE TE DA TRANQUILIDAD</span>
+            </div>
+        </a>
+        
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link">Inicio</a></li>
+            <li><a href="servicios.html" class="nav-link">Servicios</a></li>
+            <li><a href="nosotros.html" class="nav-link active">Nosotros</a></li>
+            <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            <li class="nav-menu-cta">
+                <a href="https://wa.me/573045923179" class="nav-menu-cta-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp 24/7
+                </a>
+            </li>
+            <li>
+                <a href="tel:+573045923179" class="nav-phone">
+                    <i class="fas fa-phone"></i>
+                    Llamar ahora
+                </a>
+            </li>
+        </ul>
+        
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" onclick="toggleMobileMenuInline()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Menú móvil fuera del navbar para evitar stacking context -->
+<ul class="nav-menu-mobile" id="navMenuMobile" style="display: none;">
+    <li class="mobile-menu-close">
+        <button class="mobile-menu-close-btn" onclick="toggleMobileMenuInline()">
+            <i class="fas fa-times"></i>
+        </button>
+    </li>
+    <li>
+        <a href="index.html" class="nav-link">
+            <span class="link-icon"><i class="fas fa-home"></i></span>
+            <span class="link-text">Inicio</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="servicios.html" class="nav-link">
+            <span class="link-icon"><i class="fas fa-tools"></i></span>
+            <span class="link-text">Servicios</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="nosotros.html" class="nav-link active">
+            <span class="link-icon"><i class="fas fa-users"></i></span>
+            <span class="link-text">Nosotros</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="#contacto" class="nav-link">
+            <span class="link-icon"><i class="fas fa-envelope"></i></span>
+            <span class="link-text">Contacto</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li class="nav-menu-cta">
+        <a href="https://wa.me/573045923179" class="nav-menu-cta-btn">
+            <span class="link-icon"><i class="fab fa-whatsapp"></i></span>
+            <span class="link-text">WhatsApp 24/7</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="tel:+573045923179" class="nav-phone">
+            <span class="link-icon"><i class="fas fa-phone"></i></span>
+            <span class="link-text">Llamar ahora</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+</ul>
+
+<!-- Overlay oscuro para menú móvil -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+<!-- HERO SECTION PROFESIONAL CORPORATIVO -->
+<section class="nosotros-hero">
+    <div class="hero-overlay"></div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-left">
+                <div class="hero-badge">
+                    ¿QUIÉNES SOMOS?
+                </div>
+                <h1 class="hero-title">Más que cerrajeros, <span class="highlight-gold">somos tu seguridad</span></h1>
+                <p class="hero-description">
+                    En Cerrajería Las 3J brindamos soluciones de seguridad confiables para hogares, negocios y vehículos. Con más de 10 años de experiencia en el sector, nos hemos consolidado como una empresa comprometida con la calidad, la rapidez y la satisfacción de nuestros clientes.
+                </p>
+                <p class="hero-description">
+                    Nuestro equipo de técnicos especializados trabaja con herramientas modernas y procedimientos seguros para ofrecer servicios profesionales de apertura de puertas, cambio de cerraduras, instalación de sistemas de seguridad y atención de emergencias las 24 horas.
+                </p>
+                <p class="hero-description">
+                    Creemos que la tranquilidad de nuestros clientes es lo más importante, por eso respondemos de forma rápida y eficiente cuando más nos necesitan.
+                </p>
+            </div>
+            <div class="hero-right">
+                <div class="hero-image-container">
+                    <img src="img/Nosotros.webp" alt="Cerrajería Las 3J" class="hero-image" loading="lazy" width="600" height="400">
+                    <div class="hero-image-overlay"></div>
+                </div>
+                <div class="hero-stats-grid">
+                    <div class="hero-stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-label">Años de experiencia</span>
+                        </div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-number">1000+</span>
+                            <span class="stat-label">Clientes satisfechos</span>
+                        </div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Atención inmediata</span>
+                        </div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Garantía en servicios</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="servicios.html" class="hero-cta">Conocer nuestros servicios</a>
+            </div>
+        </div>
+        
+        <!-- BLOQUE DE CONFIANZA -->
+        <div class="trust-block-premium">
+            <div class="trust-stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <p class="trust-description">
+                Más de 1000 clientes satisfechos en Ibagué y Tolima confían en nosotros.
+            </p>
+            <div class="trust-pillars">
+                <div class="trust-pillar">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Seguridad Garantizada</span>
+                </div>
+                <div class="trust-pillar">
+                    <i class="fas fa-handshake"></i>
+                    <span>Confianza y Transparencia</span>
+                </div>
+                <div class="trust-pillar">
+                    <i class="fas fa-trophy"></i>
+                    <span>Compromiso y Calidad</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- UNA CERRAJERÍA TECNOLÓGICA, RÁPIDA Y CONFIABLE -->
+<section class="tech-locksmith" id="tecnologia">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-badge">
+                <i class="fas fa-microchip"></i>
+                Tecnología
+            </div>
+            <h2 class="section-title">Una cerrajería tecnológica, rápida y confiable</h2>
+            <p class="section-subtitle">Innovación y precisión en cada servicio que ofrecemos.</p>
+        </div>
+        
+        <div class="tech-content">
+            <div class="tech-features">
+                <div class="tech-feature tech-card">
+                    <div class="tech-icon-wrapper">
+                        <div class="tech-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                    </div>
+                    <h3>Sistemas inteligentes</h3>
+                    <p>Programación de cerraduras digitales y acceso biométrico con tecnología de última generación.</p>
+                    <div class="tech-feature-accent"></div>
+                </div>
+                
+                <div class="tech-feature tech-card">
+                    <div class="tech-icon-wrapper">
+                        <div class="tech-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                    </div>
+                    <h3>Herramientas modernas</h3>
+                    <p>Equipamiento profesional sin daño para apertura y reparación precisa de todo tipo de cerraduras.</p>
+                    <div class="tech-feature-accent"></div>
+                </div>
+                
+                <div class="tech-feature tech-card">
+                    <div class="tech-icon-wrapper">
+                        <div class="tech-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                    </div>
+                    <h3>Diagnóstico rápido</h3>
+                    <p>Sistemas de evaluación digital que identifican problemas en segundos para soluciones eficientes.</p>
+                    <div class="tech-feature-accent"></div>
+                </div>
+                
+                <div class="tech-feature tech-card">
+                    <div class="tech-icon-wrapper">
+                        <div class="tech-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <h3>Seguridad avanzada</h3>
+                    <p>Implementación de sistemas de encriptación y protección contra accesos no autorizados.</p>
+                    <div class="tech-feature-accent"></div>
+                </div>
+            </div>
+            
+            <div class="tech-showcase">
+                <div class="tech-image">
+                    <i class="fas fa-microchip" style="font-size: 6rem; color: var(--gold-accent);"></i>
+                </div>
+                <div class="tech-description">
+                    <h3>Tecnología de vanguardia</h3>
+                    <p>Contamos con el equipamiento más avanzado del mercado para garantizar soluciones precisas y duraderas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TU SEGURIDAD NUESTRA PRIORIDAD -->
+<section class="security-priority" id="seguridad">
+    <div class="security-container">
+        <div class="section-header">
+            <div class="section-badge">
+                <i class="fas fa-shield-alt"></i>
+                Compromiso
+            </div>
+            <h2 class="section-title">Tu seguridad, nuestra <span class="highlight-gold">prioridad</span></h2>
+            <p class="section-subtitle">Compromiso absoluto con la protección de tu familia y patrimonio.</p>
+        </div>
+        
+        <div class="security-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3 class="benefit-title">Certificación garantizada</h3>
+                <p class="benefit-description">Técnicos certificados con formación continua en las más altas normas de seguridad.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3 class="benefit-title">Respuesta inmediata</h3>
+                <p class="benefit-description">Atención 24/7 con tiempos de respuesta garantizados para emergencias.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="benefit-title">Protección total</h3>
+                <p class="benefit-description">Soluciones integrales que cubren todos los aspectos de tu seguridad.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3 class="benefit-title">Confianza asegurada</h3>
+                <p class="benefit-description">Más de una década de experiencia respaldada por miles de clientes satisfechos.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sección de Experiencia - Rediseño Premium -->
+<section class="experience-premium-section">
+    <div class="container">
+        <div class="experience-premium-grid">
+            <!-- Columna Izquierda -->
+            <div class="experience-premium-left">
+                <div class="experience-badge">Nuestra experiencia</div>
+                <h2 class="experience-premium-title">
+                    Más de 10 años<br>
+                    protegiendo <span class="highlight-gold">hogares</span>,<br>
+                    <span class="highlight-gold">negocios</span> y vehículos
+                </h2>
+                <p class="experience-premium-subtitle">
+                    Experiencia, rapidez y confianza respaldan cada servicio.
+                </p>
+                <div class="experience-premium-description">
+                    <p>
+                        En Cerrajería Las 3J hemos ayudado a cientos de clientes a resolver emergencias, reforzar la seguridad de sus propiedades y proteger lo que más valoran.
+                    </p>
+                    <p>
+                        Nuestro equipo combina experiencia, tecnología y atención inmediata para ofrecer soluciones profesionales las 24 horas del día.
+                    </p>
+                    <p>
+                        Trabajamos con compromiso, transparencia y las mejores herramientas para garantizar resultados seguros y duraderos.
+                    </p>
+                </div>
+                <div class="experience-premium-actions">
+                    <a href="#contacto" class="experience-cta-primary">Solicitar servicio</a>
+                    <a href="https://wa.me/573045923179" class="experience-cta-secondary">
+                        <i class="fab fa-whatsapp"></i>
+                        Contactar por WhatsApp
+                    </a>
+                </div>
+                <!-- Elementos de Confianza -->
+                <div class="experience-trust-items">
+                    <div class="experience-trust-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Atención inmediata</span>
+                    </div>
+                    <div class="experience-trust-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Técnicos certificados</span>
+                    </div>
+                    <div class="experience-trust-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Cobertura local</span>
+                    </div>
+                    <div class="experience-trust-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Garantía de servicio</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Columna Derecha -->
+            <div class="experience-premium-right">
+                <div class="experience-premium-image">
+                    <img src="img/cerraduras.webp" alt="Cerrajería Las 3J - Experiencia" class="experience-image" loading="lazy" width="600" height="400">
+                </div>
+            </div>
+        </div>
+        <!-- Estadísticas -->
+        <div class="experience-premium-stats">
+            <div class="experience-stat-card">
+                <div class="experience-stat-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="experience-stat-content">
+                    <div class="experience-stat-number">10+</div>
+                    <div class="experience-stat-label">Años de experiencia</div>
+                    <div class="experience-stat-description">Más de una década brindando soluciones de seguridad.</div>
+                </div>
+            </div>
+            <div class="experience-stat-card">
+                <div class="experience-stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="experience-stat-content">
+                    <div class="experience-stat-number">1000+</div>
+                    <div class="experience-stat-label">Clientes satisfechos</div>
+                    <div class="experience-stat-description">Cientos de clientes confían en nuestro trabajo cada día.</div>
+                </div>
+            </div>
+            <div class="experience-stat-card">
+                <div class="experience-stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="experience-stat-content">
+                    <div class="experience-stat-number">24/7</div>
+                    <div class="experience-stat-label">Atención permanente</div>
+                    <div class="experience-stat-description">Disponibles las 24 horas para atender emergencias.</div>
+                </div>
+            </div>
+            <div class="experience-stat-card">
+                <div class="experience-stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="experience-stat-content">
+                    <div class="experience-stat-number">100%</div>
+                    <div class="experience-stat-label">Garantía de servicio</div>
+                    <div class="experience-stat-description">Trabajos garantizados con calidad y respaldo profesional.</div>
+                </div>
+            </div>
+        </div>
+        <!-- Banda de Beneficios -->
+        <div class="experience-premium-benefits">
+            <div class="experience-benefit-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Atención inmediata</span>
+            </div>
+            <div class="experience-benefit-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Técnicos certificados</span>
+            </div>
+            <div class="experience-benefit-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Cobertura local</span>
+            </div>
+            <div class="experience-benefit-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Presupuesto transparente</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sección de Contacto -->
+<!-- SOLICITA TU SERVICIO -->
+<section class="service-request premium-request" id="contacto">
+    <div class="container">
+        <div class="premium-request-grid">
+            <div class="premium-request-left">
+                <h2>¿Necesitas ayuda inmediata?</h2>
+                <p>Completa el formulario y te contactaremos de inmediato para resolver tu emergencia.</p>
+                <div class="hero-actions">
+                    <a href="https://wa.me/573045923179" class="cta-primary">
+                        <i class="fab fa-whatsapp"></i> 
+                        WhatsApp 24/7
+                    </a>
+                    <a href="tel:+573045923179" class="cta-secondary">
+                        <i class="fas fa-phone"></i> 
+                        Llamar ahora
+                    </a>
+                </div>
+            </div>
+            <div class="glass-form-card">
+                <h3>Solicita tu servicio</h3>
+                <p>Completa el formulario y te contactaremos de inmediato.</p>
+                <form class="modern-form" id="contactForm">
+                    <div class="double-fields">
+                        <input type="text" placeholder="Nombre completo" id="name" required>
+                        <input type="text" placeholder="Teléfono / WhatsApp" id="phone" required>
+                    </div>
+                    <input type="email" placeholder="Correo electrónico" id="email">
+                    <select id="service-type">
+                        <option value="">Servicio que necesitas</option>
+                        <option value="apertura">Apertura de puertas</option>
+                        <option value="cambio">Cambio de cerraduras</option>
+                        <option value="duplicado">Duplicado de llaves</option>
+                        <option value="automotriz">Cerrajería automotriz</option>
+                        <option value="seguridad">Instalación de seguridad</option>
+                        <option value="emergencia">Emergencia 24/7</option>
+                    </select>
+                    <textarea placeholder="Cuéntanos más detalles (opcional)" id="message"></textarea>
+                    <button type="submit">ENVIAR SOLICITUD</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BARRA PROMOCIONAL DE SEGURIDAD -->
+<section class="promo-bar-section" id="seguridad">
+    <div class="promo-bar-security">
+        <div class="promo-security-wrapper">
+            <div class="promo-security-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            
+            <div class="promo-security-content">
+                <div class="promo-security-main">
+                    <h2 class="promo-security-title">
+                        Protege lo que <span class="highlight-orange">más importa</span>
+                    </h2>
+                    <p class="promo-security-detail">
+                        <strong>Atención inmediata 24/7</strong> • Hogar, negocio o vehículo
+                    </p>
+                </div>
+                
+                <div class="promo-security-action">
+                    <a href="#contacto" class="promo-security-btn">
+                        Consultar ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Botones Flotantes Premium -->
+<div class="floating-buttons-left">
+    <a href="tel:+573045923179" class="phone-float">
+        <i class="fas fa-phone"></i>
+    </a>
+</div>
+<div class="floating-buttons-container">
+    <a href="https://wa.me/573045923179" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="https://facebook.com/CerrajeriaLas3JIbague" class="facebook-float" target="_blank">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+</div>
+
+</div>
+<!-- End Main Content Wrapper -->
+
+<!-- Footer con diseño glassmorphism -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="glass-footer-card">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <i class="fas fa-key"></i>
+                    <h3>Cerrajería Las 3 J</h3>
+                </div>
+                <p class="footer-description">
+                    Servicio profesional de cerrajería 24/7. Seguridad, confianza y atención inmediata para tu tranquilidad.
+                </p>
+            </div>
+            
+            <div class="footer-links-section">
+                <div class="footer-column">
+                    <h4>Servicios</h4>
+                    <ul class="footer-links">
+                        <li><a href="servicios.html#servicios-list"><i class="fas fa-chevron-right"></i> Apertura de puertas</a></li>
+                        <li><a href="servicios.html#servicios-list"><i class="fas fa-chevron-right"></i> Cambio de cerraduras</a></li>
+                        <li><a href="servicios.html#servicios-list"><i class="fas fa-chevron-right"></i> Duplicado de llaves</a></li>
+                        <li><a href="servicios.html#servicios-list"><i class="fas fa-chevron-right"></i> Cerrajería automotriz</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Empresa</h4>
+                    <ul class="footer-links">
+                        <li><a href="nosotros.html"><i class="fas fa-chevron-right"></i> Nosotros</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+                        <li><a href="#contacto"><i class="fas fa-chevron-right"></i> Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Contacto</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:+573045923179"><i class="fas fa-chevron-right"></i> Llamar ahora</a></li>
+                        <li><a href="https://wa.me/573045923179"><i class="fas fa-chevron-right"></i> WhatsApp</a></li>
+                        <li><a href="mailto:info@cerrajerialas3j.com"><i class="fas fa-chevron-right"></i> Correo</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-contact-row">
+                    <div class="footer-contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>304 592 3179</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp 24/7</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Disponible 24/7</span>
+                    </div>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2026 Cerrajería Las 3J - Todos los derechos reservados</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+// Navbar Scroll Effect - Optimizado con requestAnimationFrame y throttling
+let ticking = false;
+window.addEventListener('scroll', function() {
+    if (!ticking) {
+        window.requestAnimationFrame(function() {
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            }
+            ticking = false;
+        });
+        ticking = true;
+    }
+}, { passive: true });
+
+// Mobile Menu Toggle - Optimizado para usar navMenuMobile
+// Optimización: Usar requestAnimationFrame para evitar reflows innecesarios
+let isMenuAnimating = false;
+let savedScrollY = 0;
+
+function toggleMobileMenuInline() {
+    if (isMenuAnimating) return;
+    isMenuAnimating = true;
+
+    requestAnimationFrame(() => {
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenuMobile = document.getElementById('navMenuMobile');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const floatingButtons = document.querySelector('.floating-buttons-container');
+        const floatingButtonsLeft = document.querySelector('.floating-buttons-left');
+        
+        if (mobileMenuToggle && navMenuMobile) {
+            const isOpening = !navMenuMobile.classList.contains('active');
+            
+            mobileMenuToggle.classList.toggle('active');
+            navMenuMobile.classList.toggle('active');
+            document.body.classList.toggle('mobile-menu-open');
+            
+            // Mostrar/ocultar menú móvil
+            if (isOpening) {
+                navMenuMobile.style.display = 'flex';
+            } else {
+                navMenuMobile.style.display = 'none';
+            }
+            
+            // Activar/desactivar overlay
+            if (mobileMenuOverlay) {
+                mobileMenuOverlay.classList.toggle('active');
+            }
+            
+            // Ocultar/mostrar botones flotantes
+            if (floatingButtons) {
+                if (isOpening) {
+                    floatingButtons.style.display = 'none';
+                } else {
+                    floatingButtons.style.display = 'flex';
+                }
+            }
+            
+            if (floatingButtonsLeft) {
+                if (isOpening) {
+                    floatingButtonsLeft.style.display = 'none';
+                } else {
+                    floatingButtonsLeft.style.display = 'flex';
+                }
+            }
+            
+            // Bloquear scroll del body cuando el menú está abierto
+            if (isOpening) {
+                savedScrollY = window.scrollY;
+                document.body.style.overflow = 'hidden';
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${savedScrollY}px`;
+                document.body.style.width = '100%';
+            } else {
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                window.scrollTo(0, savedScrollY);
+            }
+        }
+        
+        isMenuAnimating = false;
+    });
+}
+
+// Optimización: Usar event delegation en lugar de múltiples listeners
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    const navMenuMobile = document.getElementById('navMenuMobile');
+    
+    // Cerrar menú al hacer click en el overlay
+    if (mobileMenuOverlay) {
+        mobileMenuOverlay.addEventListener('click', function(e) {
+            if (e.target === mobileMenuOverlay) {
+                toggleMobileMenuInline();
+            }
+        });
+    }
+    
+    // Event delegation para enlaces del menú móvil
+    if (navMenuMobile) {
+        navMenuMobile.addEventListener('click', function(e) {
+            const link = e.target.closest('.nav-link');
+            if (link && navMenuMobile.classList.contains('active')) {
+                // Si es un enlace interno (empieza con #), hacer smooth scroll
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        toggleMobileMenuInline();
+                        setTimeout(() => {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }, 300);
+                    }
+                } else {
+                    // Si es un enlace externo, dejar que funcione normalmente
+                    toggleMobileMenuInline();
+                }
+            }
+        });
+    }
+    
+    // Cerrar menú al presionar ESC - Optimizado con passive listener
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navMenuMobile && navMenuMobile.classList.contains('active')) {
+            toggleMobileMenuInline();
+        }
+    }, { passive: true });
+});
+
+
+// Contact Form
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const nombre = document.getElementById('name').value;
+    const telefono = document.getElementById('phone').value;
+    const correo = document.getElementById('email').value;
+    const servicio = document.getElementById('service-type').value;
+    const mensaje = document.getElementById('message').value;
+    
+    // Mapear tipo de servicio a texto legible
+    const servicioMap = {
+        'apertura': 'Apertura de Puertas',
+        'cambio': 'Cambio de Cerraduras',
+        'duplicado': 'Duplicado de Llaves',
+        'automotriz': 'Cerrajería Automotriz',
+        'seguridad': 'Instalación de Seguridad',
+        'emergencia': 'Emergencia 24/7',
+        '': 'Servicio General'
+    };
+    
+    const servicioTexto = servicioMap[servicio] || 'Servicio General';
+    
+    // Generar mensaje personalizado con formato solicitado
+    let whatsappMessage = `Hola, mi nombre es ${nombre}.\n\n`;
+    whatsappMessage += `Estoy interesado en el servicio:\n🔒 ${servicioTexto}\n\n`;
+    whatsappMessage += `📞 Teléfono: ${telefono}\n`;
+    if (correo) {
+        whatsappMessage += `📧 Correo: ${correo}\n`;
+    }
+    if (mensaje) {
+        whatsappMessage += `\n📝 Detalles:\n${mensaje}\n`;
+    }
+    whatsappMessage += `\nGracias, quedo atento a la información.`;
+    
+    // Open WhatsApp
+    window.open(`https://wa.me/573045923179?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+    
+    // Reset form
+    this.reset();
+});
+
+console.log('🚀 Página Nosotros - Cerrajería Las 3 J cargada exitosamente');
+</script>
+
+<!-- Logo Zoom Modal -->
+<div class="logo-zoom-overlay" id="logoZoomOverlay">
+    <div class="logo-zoom-content">
+        <img src="img/logo.png" alt="Cerrajería Las 3J Logo" class="logo-zoom-image">
+    </div>
+</div>
+
+<!-- Logo Zoom Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const logoTrigger = document.getElementById('logoIconTrigger');
+    const logoOverlay = document.getElementById('logoZoomOverlay');
+    if (!logoTrigger || !logoOverlay) return;
+    function openLogoZoom(e) { e.preventDefault(); e.stopPropagation(); logoOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeLogoZoom() { logoOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+    logoTrigger.addEventListener('click', openLogoZoom);
+    logoOverlay.addEventListener('click', function(e) { if (e.target === logoOverlay) closeLogoZoom(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && logoOverlay.classList.contains('active')) closeLogoZoom(); });
+});
+</script>
+
+</body>
+</html>
