@@ -1,0 +1,57 @@
+/* Animaciones para dar vida a la página */
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(-50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+
+.slide-up {
+    animation: slideUp 1s ease-out;
+}
+
+.slide-in-left {
+    animation: slideInLeft 1s ease-out;
+}
+
+.slide-in-right {
+    animation: slideInRight 1s ease-out;
+}
+
+/* Revelado en scroll (controlado desde script.js) */
+.reveal{
+    opacity:0;
+    transform:translateY(14px);
+    will-change:opacity, transform;
+}
+
+.reveal.fade-in,
+.reveal.slide-up,
+.reveal.slide-in-left,
+.reveal.slide-in-right{
+    animation:none !important;
+}
+
+.reveal.is-visible{
+    opacity:1;
+    transform:none;
+    transition:opacity 0.7s ease, transform 0.8s cubic-bezier(.2,.9,.2,1);
+}
