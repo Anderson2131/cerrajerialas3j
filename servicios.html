@@ -160,7 +160,9 @@
             </div>
             <div class="service-hero-right">
                 <div class="service-hero-image">
-                    <img src="img/apertura.webp" alt="Apertura de puertas 24/7" class="service-hero-img" loading="lazy" width="600" height="400">
+                    <video class="service-hero-img" autoplay muted loop playsinline preload="metadata" poster="img/apertura.webp">
+                        <source src="video/servicios.html/APERTURA DE PUERTAS 247.mp4" type="video/mp4">
+                    </video>
                 </div>
             </div>
         </div>
@@ -169,7 +171,9 @@
         <div class="services-complementary-grid">
             <div class="complementary-service-card">
                 <div class="complementary-service-image">
-                    <img src="img/cerraduras.webp" alt="Cambio de cerraduras" class="complementary-img" loading="lazy" width="400" height="300">
+                    <video class="complementary-img" autoplay muted loop playsinline preload="metadata" poster="img/cerraduras.webp">
+                        <source src="video/servicios.html/Cambio de cerraduras.mp4" type="video/mp4">
+                    </video>
                 </div>
                 <div class="complementary-service-content">
                     <div class="complementary-service-icon">
@@ -184,7 +188,9 @@
             </div>
             <div class="complementary-service-card">
                 <div class="complementary-service-image">
-                    <img src="img/Duplicado.webp" alt="Duplicado de llaves" class="complementary-img" loading="lazy" width="400" height="300">
+                    <video class="complementary-img" autoplay muted loop playsinline preload="metadata" poster="img/Duplicado.webp">
+                        <source src="video/servicios.html/Duplicado de llaves.mp4" type="video/mp4">
+                    </video>
                 </div>
                 <div class="complementary-service-content">
                     <div class="complementary-service-icon">
@@ -199,7 +205,9 @@
             </div>
             <div class="complementary-service-card">
                 <div class="complementary-service-image">
-                    <img src="img/carros.webp" alt="Cerrajería automotriz" class="complementary-img" loading="lazy" width="400" height="300">
+                    <video class="complementary-img" autoplay muted loop playsinline preload="metadata" poster="img/carros.webp">
+                        <source src="video/servicios.html/Cerrajería automotriz.mp4" type="video/mp4">
+                    </video>
                 </div>
                 <div class="complementary-service-content">
                     <div class="complementary-service-icon">
@@ -632,7 +640,7 @@ console.log('🚀 Página de Servicios - Cerrajería Las 3 J cargada exitosament
             <!-- Columna Izquierda - Imagen -->
             <div class="service-modal-left">
                 <div class="service-modal-image-wrapper">
-                    <img src="" alt="" id="modalImage">
+                    <video id="modalImage" autoplay muted loop playsinline preload="metadata"></video>
                     <div class="service-modal-image-overlay"></div>
                 </div>
             </div>
@@ -680,6 +688,7 @@ const servicesData = {
         subtitle: 'Servicio 24/7',
         icon: 'fa-door-open',
         image: 'img/apertura.webp',
+        video: 'video/servicios.html/APERTURA DE PUERTAS 247.mp4',
         badge: 'Servicio Premium',
         description: 'Recupera el acceso a tu hogar, oficina o local comercial de forma rápida y segura. Nuestros técnicos utilizan herramientas especializadas para realizar aperturas sin causar daños innecesarios en cerraduras o puertas. Disponible las 24 horas para emergencias.',
         benefits: [
@@ -694,6 +703,7 @@ const servicesData = {
         subtitle: 'Seguridad Avanzada',
         icon: 'fa-lock',
         image: 'img/cerraduras.webp',
+        video: 'video/servicios.html/Cambio de cerraduras.mp4',
         badge: 'Servicio Premium',
         description: 'Mejora la seguridad de tu propiedad con la instalación y sustitución de cerraduras modernas y de alta calidad. Trabajamos con diferentes tipos de sistemas de seguridad para adaptarnos a las necesidades de cada cliente.',
         benefits: [
@@ -708,6 +718,7 @@ const servicesData = {
         subtitle: 'Precisión Garantizada',
         icon: 'fa-key',
         image: 'img/Duplicado.webp',
+        video: 'video/servicios.html/Duplicado de llaves.mp4',
         badge: 'Servicio Premium',
         description: 'Realizamos copias precisas de llaves residenciales, comerciales y automotrices utilizando equipos modernos que garantizan un funcionamiento perfecto. Servicio rápido y confiable para cualquier necesidad.',
         benefits: [
@@ -722,6 +733,7 @@ const servicesData = {
         subtitle: 'Especialistas en Vehículos',
         icon: 'fa-car',
         image: 'img/carros.webp',
+        video: 'video/servicios.html/Cerrajería automotriz.mp4',
         badge: 'Servicio Premium',
         description: 'Soluciones especializadas para vehículos nacionales e importados. Realizamos apertura de autos, programación de llaves, duplicados y asistencia en casos de pérdida o bloqueo, siempre con procedimientos seguros para proteger tu vehículo.',
         benefits: [
@@ -754,8 +766,11 @@ function openServiceModal(serviceKey) {
     document.getElementById('modalSubtitle').textContent = service.subtitle;
     document.getElementById('modalBadge').textContent = service.badge;
     document.getElementById('modalDescription').textContent = service.description;
-    document.getElementById('modalImage').src = service.image;
-    document.getElementById('modalImage').alt = service.title;
+    const modalImage = document.getElementById('modalImage');
+    modalImage.poster = service.image;
+    modalImage.innerHTML = `<source src="${service.video}" type="video/mp4">`;
+    modalImage.load();
+    modalImage.alt = service.title;
     document.getElementById('modalIcon').innerHTML = `<i class="fas ${service.icon}"></i>`;
     
     // Actualizar beneficios como tarjetas

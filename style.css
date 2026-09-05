@@ -803,20 +803,17 @@ img, video{
   padding-top: clamp(120px, 12vh, 160px);
 }
 
-/* Cinematic Background Image - Bleed Effect */
+/* Cinematic Background Video - Fullscreen Cover */
 .hero-cinematic-bg {
   position: absolute;
   top: 0;
-  right: 0;
-  width: clamp(50%, 70vw, 70%);
+  left: 0;
+  width: 100%;
   height: 100%;
-  background-image: url('img/section.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  filter: brightness(1.05) contrast(1.15) saturate(1.2);
-  animation: slowZoom 20s ease-out infinite;
+  object-fit: cover;
+  object-position: center;
   z-index: 1;
+  pointer-events: none;
 }
 
 /* Cinematic Gradient Overlay - Blend with black */
@@ -828,12 +825,12 @@ img, video{
   height: 100%;
   background: linear-gradient(
     to right,
-    rgba(0, 0, 0, 0.99) 0%,
-    rgba(0, 0, 0, 0.95) 25%,
-    rgba(0, 0, 0, 0.85) 45%,
-    rgba(0, 0, 0, 0.55) 60%,
-    rgba(0, 0, 0, 0.35) 75%,
-    rgba(0, 0, 0, 0.25) 100%
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.45) 25%,
+    rgba(0, 0, 0, 0.35) 45%,
+    rgba(0, 0, 0, 0.20) 60%,
+    rgba(0, 0, 0, 0.10) 75%,
+    rgba(0, 0, 0, 0.05) 100%
   );
   z-index: 2;
   pointer-events: none;
@@ -1232,23 +1229,28 @@ img, video{
   position: relative;
   padding: clamp(2rem, 5vw, 4rem) 0;
   background: linear-gradient(to bottom, #000 0%, #0a0a0a 100%);
-  z-index: 5;
+  z-index: 10;
+  isolation: isolate;
 }
 
 .trust-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: clamp(1rem, 2vw, 1.5rem);
+  position: relative;
+  z-index: 10;
 }
 
 .trust-card {
+  position: relative;
+  z-index: 1;
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(245, 158, 11, 0.2);
   border-radius: 20px;
   padding: clamp(1.5rem, 3vw, 2rem) clamp(1rem, 2vw, 1.5rem);
   text-align: center;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -1257,6 +1259,7 @@ img, video{
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(245, 158, 11, 0.4);
   box-shadow: 0 8px 30px rgba(245, 158, 11, 0.2);
+  z-index: 50;
 }
 
 .trust-icon {
@@ -1290,10 +1293,6 @@ img, video{
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-  .hero-cinematic-bg {
-    width: 80%;
-  }
-
   .hero-content-left {
     width: 65%;
     padding: clamp(2rem, 4vw, 3rem);
@@ -1319,17 +1318,17 @@ img, video{
   }
 
   .hero-cinematic-bg {
-    width: 100%;
-    opacity: 2.0;
+    min-width: 100%;
+    min-height: 100%;
   }
 
   .hero-cinematic-overlay {
     background: linear-gradient(
       to right,
-      rgba(0, 0, 0, 0.3) 0%,
-      rgba(0, 0, 0, 0.3) 35%,
-      rgba(0, 0, 0, 0.25) 55%,
-      rgba(0, 0, 0, 0.15) 75%,
+      rgba(0, 0, 0, 0.25) 0%,
+      rgba(0, 0, 0, 0.20) 35%,
+      rgba(0, 0, 0, 0.15) 55%,
+      rgba(0, 0, 0, 0.08) 75%,
       rgba(0, 0, 0, 0.0) 100%
     );
   }
@@ -1427,7 +1426,7 @@ img, video{
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.08);
   }
 }
 
@@ -11138,7 +11137,7 @@ img, video{
 .service-hero-img{
   width: 100%;
   min-height: 500px;
-  height: auto;
+  height: 500px;
   display: block;
   object-fit: cover;
 }
@@ -11438,10 +11437,12 @@ img, video{
   min-height: 400px;
 }
 
-.service-modal-image-wrapper img{
+.service-modal-image-wrapper img,
+.service-modal-image-wrapper video{
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .service-modal-image-overlay{
