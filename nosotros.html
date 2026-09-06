@@ -20,7 +20,7 @@
     <link rel="apple-touch-icon" href="/favicon-512.png">
     
     <!-- CSS Principal -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=13">
     
     <!-- Google Fonts - Poppins -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
@@ -663,19 +663,19 @@ function toggleMobileMenuInline() {
         const floatingButtons = document.querySelector('.floating-buttons-container');
         const floatingButtonsLeft = document.querySelector('.floating-buttons-left');
         
-        if (mobileMenuToggle && navMenuMobile) {
-            const isOpening = !navMenuMobile.classList.contains('active');
-            
-            mobileMenuToggle.classList.toggle('active');
-            navMenuMobile.classList.toggle('active');
-            document.body.classList.toggle('mobile-menu-open');
-            
-            // Mostrar/ocultar menú móvil
-            if (isOpening) {
-                navMenuMobile.style.display = 'flex';
-            } else {
-                navMenuMobile.style.display = 'none';
-            }
+            if (mobileMenuToggle && navMenuMobile) {
+                const isOpening = !navMenuMobile.classList.contains('active');
+
+                mobileMenuToggle.classList.toggle('active');
+                navMenuMobile.classList.toggle('active');
+                document.body.classList.toggle('mobile-menu-open');
+
+                // Mostrar/ocultar menú móvil
+                if (isOpening) {
+                    navMenuMobile.style.display = 'flex';
+                } else {
+                    navMenuMobile.style.display = 'none';
+                }
             
             // Activar/desactivar overlay
             if (mobileMenuOverlay) {

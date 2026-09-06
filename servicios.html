@@ -20,7 +20,7 @@
     <link rel="apple-touch-icon" href="/favicon-512.png">
     
     <!-- CSS Principal -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=13">
     
     <!-- Google Fonts - Poppins -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
@@ -160,7 +160,7 @@
             </div>
             <div class="service-hero-right">
                 <div class="service-hero-image">
-                    <video class="service-hero-img" autoplay muted loop playsinline preload="metadata" poster="img/apertura.webp">
+                    <video class="service-hero-img" autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="img/apertura.webp" disablepictureinpicture>
                         <source src="video/servicios.html/APERTURA DE PUERTAS 247.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -171,7 +171,7 @@
         <div class="services-complementary-grid">
             <div class="complementary-service-card">
                 <div class="complementary-service-image">
-                    <video class="complementary-img" autoplay muted loop playsinline preload="metadata" poster="img/cerraduras.webp">
+                    <video class="complementary-img" autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="img/cerraduras.webp" disablepictureinpicture>
                         <source src="video/servicios.html/Cambio de cerraduras.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -188,7 +188,7 @@
             </div>
             <div class="complementary-service-card">
                 <div class="complementary-service-image">
-                    <video class="complementary-img" autoplay muted loop playsinline preload="metadata" poster="img/Duplicado.webp">
+                    <video class="complementary-img" autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="img/Duplicado.webp" disablepictureinpicture>
                         <source src="video/servicios.html/Duplicado de llaves.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -205,7 +205,7 @@
             </div>
             <div class="complementary-service-card">
                 <div class="complementary-service-image">
-                    <video class="complementary-img" autoplay muted loop playsinline preload="metadata" poster="img/carros.webp">
+                    <video class="complementary-img" autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="img/carros.webp" disablepictureinpicture>
                         <source src="video/servicios.html/Cerrajería automotriz.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -640,7 +640,7 @@ console.log('🚀 Página de Servicios - Cerrajería Las 3 J cargada exitosament
             <!-- Columna Izquierda - Imagen -->
             <div class="service-modal-left">
                 <div class="service-modal-image-wrapper">
-                    <video id="modalImage" autoplay muted loop playsinline preload="metadata"></video>
+                    <video id="modalImage" autoplay muted loop playsinline webkit-playsinline preload="metadata" disablepictureinpicture></video>
                     <div class="service-modal-image-overlay"></div>
                 </div>
             </div>
@@ -932,11 +932,11 @@ function toggleMobileMenuInline() {
         
         if (mobileMenuToggle && navMenuMobile) {
             const isOpening = !navMenuMobile.classList.contains('active');
-            
+
             mobileMenuToggle.classList.toggle('active');
             navMenuMobile.classList.toggle('active');
             document.body.classList.toggle('mobile-menu-open');
-            
+
             // Mostrar/ocultar menú móvil
             if (isOpening) {
                 navMenuMobile.style.display = 'flex';
@@ -1055,6 +1055,37 @@ document.addEventListener('DOMContentLoaded', function() {
     logoOverlay.addEventListener('click', function(e) { if (e.target === logoOverlay) closeLogoZoom(); });
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && logoOverlay.classList.contains('active')) closeLogoZoom(); });
 });
+</script>
+
+<!-- Force video autoplay on mobile (iOS Safari workaround) -->
+<script>
+(function() {
+    function forcePlay(video) {
+        if (!video) return;
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(function() {});
+        }
+    }
+
+    const videos = document.querySelectorAll('video');
+    videos.forEach(function(video) {
+        if (video.readyState >= 2) {
+            forcePlay(video);
+        } else {
+            video.addEventListener('loadeddata', function() { forcePlay(video); }, { once: true });
+            video.addEventListener('canplay', function() { forcePlay(video); }, { once: true });
+        }
+    });
+
+    const resume = function() {
+        videos.forEach(forcePlay);
+        window.removeEventListener('touchstart', resume);
+        window.removeEventListener('scroll', resume);
+    };
+    window.addEventListener('touchstart', resume, { once: true, passive: true });
+    window.addEventListener('scroll', resume, { once: true, passive: true });
+})();
 </script>
 
 </body>

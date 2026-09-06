@@ -20,7 +20,7 @@
     <link rel="apple-touch-icon" href="/favicon-512.png">
     
     <!-- CSS Principal -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=13">
     
     <!-- Preconnect para recursos externos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -136,7 +136,7 @@
 <!-- Hero Section Premium - Split Layout Cinematográfico -->
 <section class="hero-section-premium" id="inicio">
     <!-- Cinematic Background Video - Bleed Effect -->
-    <video class="hero-cinematic-bg" autoplay muted loop playsinline preload="auto" poster="img/section.webp">
+    <video class="hero-cinematic-bg" id="heroVideo" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture>
         <source src="video/Fondo_Hero.mp4" type="video/mp4">
     </video>
 
@@ -1144,11 +1144,11 @@
             
             if (mobileMenuToggle && navMenuMobile) {
                 const isOpening = !navMenuMobile.classList.contains('active');
-                
+
                 mobileMenuToggle.classList.toggle('active');
                 navMenuMobile.classList.toggle('active');
                 document.body.classList.toggle('mobile-menu-open');
-                
+
                 // Mostrar/ocultar menú móvil
                 if (isOpening) {
                     navMenuMobile.style.display = 'flex';
@@ -1329,5 +1329,38 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+<!-- Force video autoplay on mobile (iOS Safari workaround) -->
+<script>
+(function() {
+    function forcePlay(video) {
+        if (!video) return;
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(function() {});
+        }
+    }
+
+    const videos = document.querySelectorAll('video');
+    videos.forEach(function(video) {
+        if (video.readyState >= 2) {
+            forcePlay(video);
+        } else {
+            video.addEventListener('loadeddata', function() { forcePlay(video); }, { once: true });
+            video.addEventListener('canplay', function() { forcePlay(video); }, { once: true });
+        }
+    });
+
+    const resume = function() {
+        videos.forEach(forcePlay);
+        window.removeEventListener('touchstart', resume);
+        window.removeEventListener('scroll', resume);
+    };
+    window.addEventListener('touchstart', resume, { once: true, passive: true });
+    window.addEventListener('scroll', resume, { once: true, passive: true });
+})();
+</script>
+
+
 </body>
 </html>
