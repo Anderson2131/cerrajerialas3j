@@ -11,7 +11,7 @@ session_start();
 
 require_once __DIR__ . '/session.php';
 
-if (!isset($_GET['key']) || $_GET['key'] !== 'setup-2fa-' . md5(__FILE__)) {
+if (!isset($_GET['key']) || $_GET['key'] !== 'setup-2fa-cerrajerialas3j-2026') {
     header('Location: /login.html');
     exit;
 }
