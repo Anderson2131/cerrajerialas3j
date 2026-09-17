@@ -1,0 +1,736 @@
+<?php
+require_once 'session.php';
+requireAuth();
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Facturas PDF</title>
+  <!-- Librería html2pdf.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+    /* 1. Elimina márgenes globales y fija la altura completa */
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      overflow-x: hidden !important;
+    }
+
+    /* 2. Haz que el contenedor principal ocupe toda la pantalla */
+    body {
+      min-height: 100vh !important;
+      display: flex !important;
+      flex-direction: column !important;
+      background-color: #f4f6f8 !important;
+      padding-top: 90px !important;
+    }
+
+    /* 3. Ajusta el contenedor exterior del footer */
+    footer.footer {
+      width: 100vw !important;
+      margin-left: calc(-50vw + 50%) !important;
+      background-color: #1a1e29 !important;
+      margin-top: auto !important;
+      padding-bottom: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
+    /* 4. Contenedor interno */
+    .footer-container {
+      max-width: 100% !important;
+      margin: 0 auto !important;
+      background-color: transparent !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
+    }
+
+    .glass-footer-card {
+      background: rgba(255, 255, 255, 0.03) !important;
+      backdrop-filter: blur(15px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      border-radius: 28px !important;
+      padding: clamp(1.5rem, 3vh, 2.5rem) clamp(2rem, 4vw, 3rem) !important;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: clamp(1.5rem, 3vh, 2.5rem) !important;
+      width: 100% !important;
+      max-width: 1200px !important;
+      margin: 0 auto !important;
+      color: #fff !important;
+    }
+
+    .footer-brand h3, .footer-description, .footer-column h4, .footer-links li a, .footer-copyright p, .footer-contact-item span {
+      color: #fff !important;
+    }
+
+    .footer-links li a i {
+      color: #F59E0B !important;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    /* Contenedor principal */
+    .container {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 20px !important;
+      max-width: 1200px !important;
+      margin: 0 auto !important;
+      margin-top: 20px !important;
+      width: 100% !important;
+      background-color: #ced4da !important;
+      border-radius: 12px !important;
+      padding: 20px !important;
+    }
+
+    /* Panel del Formulario */
+    .form-panel {
+      flex: 1;
+      min-width: 320px;
+      background: #fff;
+      padding: 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
+    .form-group input { width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; }
+
+    .items-table-form { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+    .items-table-form th, .items-table-form td { padding: 6px; text-align: left; }
+    .items-table-form input { width: 100%; }
+
+    .btn {
+      background: #0d6efd; color: white; border: none; padding: 10px 16px;
+      border-radius: 4px; cursor: pointer; font-weight: 600; width: 100%; margin-top: 10px;
+    }
+    .btn:hover { background: #0b5ed7; }
+    .btn-secondary { background: #6c757d; }
+    .btn-secondary:hover { background: #5c636a; }
+
+    /* Panel de Vista Previa (Factura) */
+    .preview-panel {
+      flex: 1;
+      min-width: 380px;
+      background: #e9ecef;
+      padding: 20px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #factura {
+      background: white;
+      width: 100%;
+      max-width: 700px;
+      padding: 40px;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-size: 14px;
+    }
+
+    .factura-header { display: flex; justify-content: space-between; border-bottom: 2px solid #eee; padding-bottom: 20px; }
+    .company-title { font-size: 22px; font-weight: bold; color: #1a252f; margin: 0; }
+    .factura-title { font-size: 20px; color: #0d6efd; font-weight: bold; text-align: right; }
+    
+    .details-grid { display: flex; justify-content: space-between; margin: 25px 0; }
+    
+    .invoice-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .invoice-table th { background: #f8f9fa; border-bottom: 2px solid #dee2e6; padding: 10px; text-align: left; }
+    .invoice-table td { border-bottom: 1px solid #eee; padding: 10px; }
+    
+    .totals { margin-top: 20px; text-align: right; font-size: 15px; }
+    .totals p { margin: 5px 0; }
+    .grand-total { font-size: 18px; font-weight: bold; color: #0d6efd; }
+  </style>
+    <!-- Google Fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="style.css?v=13">
+  </head>
+  <body>
+
+<!-- Navbar Premium - Transparente con Scroll Dinámico -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <div class="nav-logo-icon nav-logo-icon-clickable" id="logoIconTrigger" title="Click para ver el logo">
+                <img src="img/logo.png" alt="Cerrajería Las 3J Logo" class="nav-logo-img">
+            </div>
+            <div class="nav-logo-text">
+                <span class="logo-main">CERRAJERÍA LAS 3J</span>
+                <span class="logo-tagline">SEGURIDAD QUE TE DA TRANQUILIDAD</span>
+            </div>
+        </a>
+        
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link">Inicio</a></li>
+            <li><a href="servicios.html" class="nav-link">Servicios</a></li>
+            <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+            <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            <li class="nav-menu-cta">
+                <a href="https://wa.me/573181714657" class="nav-menu-cta-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp 24/7
+                </a>
+            </li>
+            <li>
+                <a href="tel:+573181714657" class="nav-phone">
+                    <i class="fas fa-phone"></i>
+                    Llamar ahora
+                </a>
+            </li>
+        </ul>
+        
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" onclick="toggleMobileMenuInline()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Menú móvil fuera del navbar para evitar stacking context -->
+<ul class="nav-menu-mobile" id="navMenuMobile" style="display: none;">
+    <li class="mobile-menu-close">
+        <button class="mobile-menu-close-btn" onclick="toggleMobileMenuInline()">
+            <i class="fas fa-times"></i>
+        </button>
+    </li>
+    <li>
+        <a href="index.html" class="nav-link active">
+            <span class="link-icon"><i class="fas fa-home"></i></span>
+            <span class="link-text">Inicio</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="servicios.html" class="nav-link">
+            <span class="link-icon"><i class="fas fa-tools"></i></span>
+            <span class="link-text">Servicios</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="nosotros.html" class="nav-link">
+            <span class="link-icon"><i class="fas fa-users"></i></span>
+            <span class="link-text">Nosotros</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="#contacto" class="nav-link">
+            <span class="link-icon"><i class="fas fa-envelope"></i></span>
+            <span class="link-text">Contacto</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li class="nav-menu-cta">
+        <a href="https://wa.me/573181714657" class="nav-menu-cta-btn">
+            <span class="link-icon"><i class="fab fa-whatsapp"></i></span>
+            <span class="link-text">WhatsApp 24/7</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="tel:+573181714657" class="nav-phone">
+            <span class="link-icon"><i class="fas fa-phone"></i></span>
+            <span class="link-text">Llamar ahora</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+</ul>
+
+<!-- Overlay oscuro para menú móvil -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+  <div class="container">
+    <!-- Formulario para ingresar datos -->
+    <div class="form-panel">
+      <h2>Datos de la Factura</h2>
+      
+      <div class="form-group">
+        <label>Fecha</label>
+        <input type="date" id="inputFecha" oninput="actualizarFactura()">
+      </div>
+
+      <div class="form-group">
+        <label>Logo Empresarial</label>
+        <input type="file" id="inputLogo" accept="image/*" style="display: none;" onchange="cargarLogo(event)">
+        <button class="btn btn-secondary" type="button" onclick="document.getElementById('inputLogo').click()">📁 Agregar Logo</button>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre del Cliente</label>
+        <input type="text" id="inputCliente" value="Juan Pérez" oninput="actualizarFactura()">
+      </div>
+
+      <div class="form-group">
+        <label>Número de Factura</label>
+        <input type="text" id="inputNumFactura" value="FAC-001" oninput="actualizarFactura()">
+      </div>
+
+      <div class="form-group" style="margin-top: 15px;">
+        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" id="inputConIva" checked onchange="actualizarFactura()">
+          Incluir IVA
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Firma Electrónica</label>
+        <input type="file" id="inputFirma" accept="image/*" style="display: none;" onchange="cargarFirma(event)">
+        <button class="btn btn-secondary" type="button" onclick="document.getElementById('inputFirma').click()">📁 Agregar Firma</button>
+      </div>
+
+      <div class="form-group">
+        <label>Porcentaje de IVA (%)</label>
+        <input type="number" id="inputPorcentajeIva" value="19" min="0" step="0.1" oninput="actualizarFactura()">
+      </div>
+
+      <h3>Ítems / Servicios</h3>
+      <table class="items-table-form" id="itemsForm">
+        <thead>
+          <tr>
+            <th>Descripción</th>
+            <th style="width: 70px;">Cant.</th>
+            <th style="width: 100px;">Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" class="item-desc" value="Servicio de Mantenimiento" oninput="actualizarFactura()"></td>
+            <td><input type="number" class="item-cant" value="1" min="1" oninput="actualizarFactura()"></td>
+            <td><input type="text" class="item-precio" value="150.000" min="0" oninput="formatPrice(this); actualizarFactura()"></td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <button class="btn btn-secondary" onclick="agregarFila()">+ Agregar Ítem</button>
+      <button class="btn" onclick="generarPDF()" style="margin-top: 20px;">Descargar en PDF</button>
+    </div>
+
+    <!-- Vista previa editable que se imprimirá -->
+    <div class="preview-panel">
+      <div id="factura">
+<div class="factura-header">
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <img id="lblLogo" src="img/logo.png" alt="Logo" style="max-height: 60px; display: block; border-radius: 4px;">
+            <div>
+              <h1 class="company-title">Cerrajeria Las 3J</h1>
+              <p style="margin: 5px 0 0 0; color: #666;">NIT / RUC: 89001021</p>
+            </div>
+          </div>
+          <div>
+            <div class="factura-title">FACTURA</div>
+            <p style="margin: 5px 0 0 0; text-align: right;" id="lblNumFactura">N° FAC-001</p>
+            <p style="margin: 5px 0 0 0; text-align: right; color: #666;" id="lblFecha"></p>
+          </div>
+        </div>
+
+        <div class="details-grid">
+          <div>
+            <strong>Facturado a:</strong>
+            <p id="lblCliente" style="margin: 5px 0 0 0;">Juan Pérez</p>
+          </div>
+        </div>
+
+        <table class="invoice-table">
+          <thead>
+            <tr>
+              <th>Descripción</th>
+              <th style="text-align: center;">Cant.</th>
+              <th style="text-align: right;">P. Unitario</th>
+              <th style="text-align: right;">Total</th>
+            </tr>
+          </thead>
+          <tbody id="lblTablaItems">
+            <!-- Se llena dinámicamente -->
+          </tbody>
+        </table>
+
+        <div class="totals">
+<p>Subtotal: <span id="lblSubtotal">COP$ 0.00</span></p>
+            <p id="ivaRow">IVA (<span id="lblPorcentajeIva">19</span>%): <span id="lblIva">COP$ 0.00</span></p>
+            <p class="grand-total">Total: <span id="lblTotal">COP$ 0.00</span></p>
+         </div>
+         <div style="display: flex; justify-content: space-between; width: 100%; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+           <div style="text-align: left;">
+             <p style="margin: 0; font-weight: 600;">Firmado por:</p>
+             <img id="lblFirma" src="" alt="Firma" style="max-height: 50px; display: none; margin-top: 5px;">
+           </div>
+         </div>
+</div>
+  </div>
+</div>
+
+<!-- Footer con diseño glassmorphism -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="glass-footer-card">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <i class="fas fa-key"></i>
+                    <h3>Cerrajería Las 3 J</h3>
+                </div>
+                <p class="footer-description">
+                    Servicio profesional de cerrajería 24/7. Atención inmediata y garantizada.
+                </p>
+            </div>
+            
+            <div class="footer-links-section">
+                <div class="footer-column">
+                    <h4>Servicios</h4>
+                    <ul class="footer-links">
+                        <li><a href="servicios.html"><i class="fas fa-chevron-right"></i> Apertura de puertas</a></li>
+                        <li><a href="servicios.html"><i class="fas fa-chevron-right"></i> Cambio de cerraduras</a></li>
+                        <li><a href="servicios.html"><i class="fas fa-chevron-right"></i> Duplicado de llaves</a></li>
+                        <li><a href="servicios.html"><i class="fas fa-chevron-right"></i> Cerrajería automotriz</a></li>
+                        <li><a href="servicios.html"><i class="fas fa-chevron-right"></i> Instalación de seguridad</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Empresa</h4>
+                    <ul class="footer-links">
+                        <li><a href="nosotros.html"><i class="fas fa-chevron-right"></i> Nosotros</a></li>
+                        <li><a href="facturacion.html"><i class="fas fa-file-invoice"></i> Factura</a></li>
+                        <li><a href="#clientes"><i class="fas fa-chevron-right"></i> Clientes</a></li>
+                        <li><a href="#resultados"><i class="fas fa-chevron-right"></i> Resultados</a></li>
+                        <li><a href="#cobertura"><i class="fas fa-chevron-right"></i> Cobertura</a></li>
+                        <li><a href="#seguridad"><i class="fas fa-chevron-right"></i> Garantía</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Contacto</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:+573181714657"><i class="fas fa-chevron-right"></i> Llamar ahora</a></li>
+                        <li><a href="https://wa.me/573181714657"><i class="fas fa-chevron-right"></i> WhatsApp</a></li>
+                        <li><a href="#contacto"><i class="fas fa-chevron-right"></i> Formulario</a></li>
+                        <li><a href="mailto:info@cerrajerialas3j.com"><i class="fas fa-chevron-right"></i> Correo</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Emergencia 24/7</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-contact-row">
+                    <div class="footer-contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>318 171 4657</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp 24/7</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@cerrajerialas3j.com</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Ibagué, Tolima</span>
+                    </div>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2026 Cerrajería Las 3J - Servicio Profesional de Cerrajería 24/7 - Todos los derechos reservados</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    
+    <!-- Función inline para menú móvil - Optimizada -->
+    <script>
+    let isMenuAnimating = false;
+    let savedScrollY = 0;
+
+    function toggleMobileMenuInline() {
+        if (isMenuAnimating) return;
+        isMenuAnimating = true;
+
+        requestAnimationFrame(() => {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const navMenuMobile = document.getElementById('navMenuMobile');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const floatingButtons = document.querySelector('.floating-buttons-container');
+            const floatingButtonsLeft = document.querySelector('.floating-buttons-left');
+            
+            if (mobileMenuToggle && navMenuMobile) {
+                const isOpening = !navMenuMobile.classList.contains('active');
+
+                mobileMenuToggle.classList.toggle('active');
+                navMenuMobile.classList.toggle('active');
+                document.body.classList.toggle('mobile-menu-open');
+
+                if (isOpening) {
+                    navMenuMobile.style.display = 'flex';
+                } else {
+                    navMenuMobile.style.display = 'none';
+                }
+                
+                if (mobileMenuOverlay) {
+                    mobileMenuOverlay.classList.toggle('active');
+                }
+                
+                if (floatingButtons) {
+                    if (isOpening) {
+                        floatingButtons.style.display = 'none';
+                    } else {
+                        floatingButtons.style.display = 'flex';
+                    }
+                }
+                
+                if (floatingButtonsLeft) {
+                    if (isOpening) {
+                        floatingButtonsLeft.style.display = 'none';
+                    } else {
+                        floatingButtonsLeft.style.display = 'flex';
+                    }
+                }
+                
+                if (isOpening) {
+                    savedScrollY = window.scrollY;
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.position = 'fixed';
+                    document.body.style.top = `-${savedScrollY}px`;
+                    document.body.style.width = '100%';
+                } else {
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    document.body.style.top = '';
+                    document.body.style.width = '';
+                    window.scrollTo(0, savedScrollY);
+                }
+            }
+            
+            isMenuAnimating = false;
+        });
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const navMenuMobile = document.getElementById('navMenuMobile');
+        
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.addEventListener('click', function(e) {
+                if (e.target === mobileMenuOverlay) {
+                    toggleMobileMenuInline();
+                }
+            });
+        }
+        
+        if (navMenuMobile) {
+            navMenuMobile.addEventListener('click', function(e) {
+                const link = e.target.closest('.nav-link');
+                if (link && navMenuMobile.classList.contains('active')) {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            toggleMobileMenuInline();
+                            setTimeout(() => {
+                                target.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }, 300);
+                        }
+                    } else {
+                        toggleMobileMenuInline();
+                    }
+                }
+            });
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenuMobile && navMenuMobile.classList.contains('active')) {
+                toggleMobileMenuInline();
+            }
+        }, { passive: true });
+    });
+    </script>
+    
+    <!-- Logo Zoom Modal -->
+    <div class="logo-zoom-overlay" id="logoZoomOverlay">
+        <div class="logo-zoom-content">
+            <img src="img/logo.png" alt="Cerrajería Las 3J Logo" class="logo-zoom-image">
+        </div>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const logoTrigger = document.getElementById('logoIconTrigger');
+        const logoOverlay = document.getElementById('logoZoomOverlay');
+        if (!logoTrigger || !logoOverlay) return;
+        function openLogoZoom(e) { e.preventDefault(); e.stopPropagation(); logoOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeLogoZoom() { logoOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+        logoTrigger.addEventListener('click', openLogoZoom);
+        logoOverlay.addEventListener('click', function(e) { if (e.target === logoOverlay) closeLogoZoom(); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && logoOverlay.classList.contains('active')) closeLogoZoom(); });
+    });
+    </script>
+    
+    <!-- Force video autoplay on mobile (iOS Safari workaround) -->
+    <script>
+    (function() {
+        function forcePlay(video) {
+            if (!video) return;
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(function() {});
+            }
+        }
+        const videos = document.querySelectorAll('video');
+        videos.forEach(function(video) {
+            if (video.readyState >= 2) {
+                forcePlay(video);
+            } else {
+                video.addEventListener('loadeddata', function() { forcePlay(video); }, { once: true });
+                video.addEventListener('canplay', function() { forcePlay(video); }, { once: true });
+            }
+        });
+        const resume = function() {
+            videos.forEach(forcePlay);
+            window.removeEventListener('touchstart', resume);
+            window.removeEventListener('scroll', resume);
+        };
+        window.addEventListener('touchstart', resume, { once: true, passive: true });
+        window.addEventListener('scroll', resume, { once: true, passive: true });
+    })();
+    </script>
+    
+<script>
+    const fechaInput = document.getElementById('inputFecha');
+    const hoy = new Date().toISOString().split('T')[0];
+    fechaInput.value = hoy;
+    document.getElementById('lblFecha').innerText = `Fecha: ${fechaInput.value}`;
+
+    function actualizarFactura() {
+      document.getElementById('lblFecha').innerText = `Fecha: ${document.getElementById('inputFecha').value}`;
+      document.getElementById('lblCliente').innerText = document.getElementById('inputCliente').value || 'Cliente General';
+      document.getElementById('lblNumFactura').innerText = 'N° ' + (document.getElementById('inputNumFactura').value || 'FAC-000');
+
+      const filas = document.querySelectorAll('#itemsForm tbody tr');
+      const tablaPreview = document.getElementById('lblTablaItems');
+      tablaPreview.innerHTML = '';
+
+      let subtotal = 0;
+
+      filas.forEach(fila => {
+        const desc = fila.querySelector('.item-desc').value || '-';
+        const cant = parseFloat(fila.querySelector('.item-cant').value) || 0;
+        const precio = parseFloat(fila.querySelector('.item-precio').value.replace(/\./g, '')) || 0;
+        const totalFila = cant * precio;
+        subtotal += totalFila;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${desc}</td>
+          <td style="text-align: center;">${cant}</td>
+          <td style="text-align: right;">COP$ ${precio.toLocaleString('es-CO')}</td>
+          <td style="text-align: right;">COP$ ${totalFila.toLocaleString('es-CO')}</td>
+        `;
+        tablaPreview.appendChild(tr);
+      });
+
+      const conIva = document.getElementById('inputConIva').checked;
+      const porcentajeIva = parseFloat(document.getElementById('inputPorcentajeIva').value) || 0;
+      const iva = conIva ? subtotal * (porcentajeIva / 100) : 0;
+      const total = subtotal + iva;
+
+      document.getElementById('lblPorcentajeIva').innerText = conIva ? porcentajeIva : 0;
+      document.getElementById('lblSubtotal').innerText = `COP$ ${subtotal.toLocaleString('es-CO')}`;
+      document.getElementById('lblIva').innerText = `COP$ ${iva.toLocaleString('es-CO')}`;
+      document.getElementById('lblTotal').innerText = `COP$ ${total.toLocaleString('es-CO')}`;
+
+      const ivaRow = document.getElementById('ivaRow');
+      if (ivaRow) {
+        ivaRow.style.display = conIva ? '' : 'none';
+      }
+    }
+
+    // Agregar nueva fila de ítem
+    function agregarFila() {
+      const tbody = document.querySelector('#itemsForm tbody');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input type="text" class="item-desc" placeholder="Nuevo ítem" oninput="actualizarFactura()"></td>
+        <td><input type="number" class="item-cant" value="1" min="1" oninput="actualizarFactura()"></td>
+        <td><input type="text" class="item-precio" value="0" min="0" oninput="formatPrice(this); actualizarFactura()"></td>
+      `;
+      tbody.appendChild(tr);
+      actualizarFactura();
+    }
+
+    // Formatear precio con puntos como separador de miles
+    function formatPrice(input) {
+      let value = input.value.replace(/\./g, '').replace(/\,/g, '');
+      let number = parseFloat(value);
+      if (isNaN(number)) return;
+      input.value = number.toLocaleString('es-CO');
+      actualizarFactura();
+    }
+
+    // Función para generar el archivo PDF
+    function generarPDF() {
+      const elemento = document.getElementById('factura');
+      const numFactura = document.getElementById('inputNumFactura').value || 'FAC-000';
+
+      const opciones = {
+        margin:       10,
+        filename:     `Factura_${numFactura}.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+
+      html2pdf().set(opciones).from(elemento).save();
+    }
+
+    // Cargar firma electrónica
+    function cargarFirma(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById('lblFirma');
+        img.src = e.target.result;
+        img.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Cargar logo empresarial
+    function cargarLogo(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById('lblLogo');
+        img.src = e.target.result;
+        img.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Inicializar valores al cargar
+    actualizarFactura();
+  </script>
+</body>
+</html>

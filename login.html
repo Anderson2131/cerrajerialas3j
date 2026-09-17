@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerrajería Las 3J - Acceso</title>
+    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 28px;
+            padding: 40px 30px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+        .login-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .login-logo img {
+            max-height: 60px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .login-logo h2 {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        .login-logo p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .login-form-group {
+            margin-bottom: 20px;
+        }
+        .login-form-group label {
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        .login-form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s;
+        }
+        .login-form-group input:focus {
+            outline: none;
+            border-color: #F59E0B;
+        }
+        .login-form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #D97706, #F59E0B);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(217, 119, 6, 0.4);
+        }
+        .login-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+        }
+        .error-message {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .info-box {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #FCD34D;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        @media (max-width: 480px) {
+            .login-container { padding: 30px 20px; }
+            .login-logo h2 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-logo">
+            <img src="img/logo.png" alt="Cerrajería Las 3J">
+            <h2>CERRAJERÍA LAS 3J</h2>
+            <p>Sistema de Facturación - Acceso Autorizado</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="info-box" id="infoBox"></div>
+
+        <form action="verify.php" method="POST" id="loginForm">
+            <div class="login-form-group">
+                <label><i class="fas fa-phone"></i> Número de Teléfono Autorizado</label>
+                <input type="tel" name="phone" id="phone" placeholder="3249610909" required autocomplete="tel" maxlength="15">
+            </div>
+            <button type="submit" class="btn-login" id="btnSubmit">
+                <i class="fas fa-shield-alt"></i> Continuar
+            </button>
+        </form>
+
+        <div class="login-footer">
+            <p>Sistema protegido con autenticación TOTP</p>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        const info = urlParams.get('info');
+
+        if (error === 'invalid') {
+            document.getElementById('errorMessage').textContent = 'Los datos ingresados no son válidos.';
+            document.getElementById('errorMessage').style.display = 'block';
+        }
+        if (error === 'locked') {
+            document.getElementById('errorMessage').textContent = 'Demasiados intentos. Intente más tarde.';
+            document.getElementById('errorMessage').style.display = 'block';
+        }
+        if (info === 'totp') {
+            document.getElementById('infoBox').textContent = 'Ingrese el código TOTP de 6 dígitos generado por su aplicación autenticadora.';
+            document.getElementById('infoBox').style.display = 'block';
+            document.getElementById('loginForm').innerHTML = `
+                <div class="login-form-group">
+                    <label><i class="fas fa-key"></i> Código TOTP (6 dígitos)</label>
+                    <input type="text" name="totp_code" id="totp_code" placeholder="000000" required maxlength="6" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code">
+                </div>
+                <input type="hidden" name="phone" value="${urlParams.phone || ''}">
+                <button type="submit" class="btn-login"><i class="fas fa-check-circle"></i> Verificar Código</button>
+            `;
+        }
+    </script>
+</body>
+</html>
