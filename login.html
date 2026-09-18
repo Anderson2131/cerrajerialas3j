@@ -173,7 +173,7 @@
                     <label><i class="fas fa-key"></i> Código TOTP (6 dígitos)</label>
                     <input type="text" name="totp_code" id="totp_code" placeholder="000000" required maxlength="6" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code">
                 </div>
-                <input type="hidden" name="phone" value="${urlParams.phone || ''}">
+                <input type="hidden" name="phone" value="${urlParams.get('phone') || ''}">
                 <button type="submit" class="btn-login"><i class="fas fa-check-circle"></i> Verificar Código</button>
             `;
         }
