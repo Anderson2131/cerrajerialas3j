@@ -36,7 +36,7 @@ if (isset($_POST['totp_code'])) {
     }
 
     if (!verifyTOTP($config['totp_secret'], $totpCode)) {
-        error_log("TOTP_FAIL: expected=" . generateTOTP($config['totp_secret']) . ", got=$totpCode, secret=" . $config['totp_secret'] . ", config_type=" . gettype($config));
+        echo "TOTP_FAIL: expected=" . generateTOTP($config['totp_secret']) . ", got=$totpCode, secret=" . $config['totp_secret'] . ", config_type=" . gettype($config);
         recordAttempt($phone);
         $remaining = getRemainingAttempts($phone);
         if ($remaining <= 0) {
