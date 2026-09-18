@@ -40,10 +40,11 @@ function base32_decode($data) {
     return $result;
 }
 
-function generateTOTP($secret, $timeStep = 30) {
-    $config = getConfig();
+function generateTOTP($secret, $time = null) {
     $secret = base32_decode($secret);
-    $time = floor(time() / $timeStep);
+    if ($time === null) {
+        $time = floor(time() / 30);
+    }
     $time = pack('J', $time);
     $hash = hash_hmac('sha1', $time, $secret, true);
     $offset = ord($hash[19]) & 0x0F;
