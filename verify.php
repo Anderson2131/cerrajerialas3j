@@ -53,7 +53,7 @@ if (isset($_POST['totp_code'])) {
     $_SESSION['auth_phone'] = $phone;
     $_SESSION['last_activity'] = time();
 
-    header('Location: /Factura.php');
+    header('Location: /facturacion.php');
     exit;
 } else {
     if (empty($phone)) {
