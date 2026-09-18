@@ -12,7 +12,11 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 function getConfig() {
-    return require_once __DIR__ . '/auth-config.php';
+    static $config = null;
+    if ($config === null) {
+        $config = require_once __DIR__ . '/auth-config.php';
+    }
+    return $config;
 }
 
 function base32_decode($data) {
