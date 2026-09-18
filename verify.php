@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 if (session_status() === PHP_SESSION_NONE) {
     session_set_cookie_params([
         'lifetime' => 0,
@@ -36,13 +39,8 @@ if (isset($_POST['totp_code'])) {
     }
 
     if (!verifyTOTP($config['totp_secret'], $totpCode)) {
-        recordAttempt($phone);
-        $remaining = getRemainingAttempts($phone);
-        if ($remaining <= 0) {
-            header('Location: /login.html?error=locked');
-        } else {
-            header('Location: /login.html?error=invalid');
-        }
+        $expected = generateTOTP($config['totp_secret']);
+        echo "DEBUG: expected=$expected, got=$totpCode, secret=" . $config['totp_secret'] . ", config_type=" . gettype($config);
         exit;
     }
 
