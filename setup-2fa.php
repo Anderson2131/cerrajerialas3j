@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_totp'])) {
             <div class="success-message">
                 <i class="fas fa-check-circle"></i> Autenticación configurada exitosamente. Serás redirigido...
             </div>
-            <script>setTimeout(function{ window.location.href = '/login.html'; }, 2000);</script>
+            <script>setTimeout(function(){ window.location.href = '/login.html'; }, 2000);</script>
         <?php else: ?>
             <div class="steps">
                 <li>Descarga Google Authenticator</li>
