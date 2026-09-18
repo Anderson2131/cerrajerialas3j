@@ -44,18 +44,8 @@ $qrUrl = generateQRCodeURL($secret);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_totp'])) {
     $code = isset($_POST['verify_code']) ? preg_replace('/[^0-9]/', '', $_POST['verify_code']) : '';
     if (strlen($code) === 6 && ctype_digit($code) && verifyTOTP($_SESSION['setup_secret'], $code)) {
-        $configFile = '<?php\nreturn [\n';
-        $configFile .= "    'authorized_phone' => '" . addslashes($config['authorized_phone']) . "',\n";
-        $configFile .= "    'totp_secret' => '" . addslashes($secret) . "',\n";
-        $configFile .= "    'session_timeout' => " . $config['session_timeout'] . ",\n";
-        $configFile .= "    'max_attempts' => " . $config['max_attempts'] . ",\n";
-        $configFile .= "    'attempt_window' => " . $config['attempt_window'] . ",\n";
-        $configFile .= "    'lockout_duration' => " . $config['lockout_duration'] . ",\n";
-        $configFile .= "];\n";
-        file_put_contents(__DIR__ . '/auth-config.php', $configFile);
         $_SESSION['setup_verified'] = true;
         unset($_SESSION['setup_mode']);
-        unset($_SESSION['setup_secret']);
         $success = true;
     } else {
         $verifyError = 'El código no es válido. Intente de nuevo.';
@@ -157,9 +147,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_totp'])) {
 
         <?php if (isset($success)): ?>
             <div class="success-message">
-                <i class="fas fa-check-circle"></i> Autenticación configurada exitosamente. Serás redirigido...
+                <i class="fas fa-check-circle"></i> Código verificado. Configura la variable de entorno TOTP_SECRET en Render.<br>
+                <strong>Secreto:</strong> <?php echo $secret; ?>
+                <br><br>
+                <a href="/login.html" style="color:#86efac;text-decoration:underline;">Ir al login</a>
             </div>
-            <script>setTimeout(function(){ window.location.href = '/login.html'; }, 2000);</script>
+            <script>setTimeout(function(){ window.location.href = '/login.html'; }, 5000);</script>
         <?php else: ?>
             <div class="steps">
                 <li>Descarga Google Authenticator</li>
