@@ -21,6 +21,18 @@
     }
   </script>
 <style>
+    @media print {
+        body { padding-top: 0 !important; }
+        nav.navbar, footer.footer, .form-panel { display: none !important; }
+        .container { display: block !important; }
+        #factura { box-shadow: none !important; padding: 20px !important; }
+        .invoice-table th { background: #f8f9fa !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
+        .invoice-table td { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
+    }
+    @page {
+        margin: 10mm;
+        size: A4;
+    }
     html, body {
       margin: 0 !important;
       padding: 0 !important;
@@ -126,16 +138,16 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       font-size: 14px;
     }
-    .factura-header { display: flex; justify-content: space-between; border-bottom: 2px solid #eee; padding-bottom: 20px; }
-    .company-title { font-size: 22px; font-weight: bold; color: #1a252f; margin: 0; }
-    .factura-title { font-size: 20px; color: #0d6efd; font-weight: bold; text-align: right; }
-    .details-grid { display: flex; justify-content: space-between; margin: 25px 0; }
-    .invoice-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    .invoice-table th { background: #f8f9fa; border-bottom: 2px solid #dee2e6; padding: 10px; text-align: left; }
-    .invoice-table td { border-bottom: 1px solid #eee; padding: 10px; }
-    .totals { margin-top: 20px; text-align: right; font-size: 15px; }
-    .totals p { margin: 5px 0; }
-    .grand-total { font-size: 18px; font-weight: bold; color: #0d6efd; }
+.invoice-table { width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #ddd; }
+        .invoice-table th { background: #f8f9fa; border-bottom: 2px solid #dee2e6; padding: 10px; text-align: left; border: 1px solid #ddd; }
+        .invoice-table td { border-bottom: 1px solid #eee; padding: 10px; border: 1px solid #ddd; }
+        .totals { margin-top: 20px; text-align: right; font-size: 15px; }
+        .totals p { margin: 5px 0; }
+        .grand-total { font-size: 18px; font-weight: bold; color: #0d6efd; }
+        .factura-header { display: flex; justify-content: space-between; border-bottom: 2px solid #eee; padding-bottom: 20px; }
+        .company-title { font-size: 22px; font-weight: bold; color: #1a252f; margin: 0; }
+        .factura-title { font-size: 20px; color: #0d6efd; font-weight: bold; text-align: right; }
+        .details-grid { display: flex; justify-content: space-between; margin: 25px 0; }
   </style>
     <!-- Google Fonts - Poppins -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
@@ -313,7 +325,7 @@
 
     <!-- Vista previa editable que se imprimirá -->
     <div class="preview-panel">
-      <div id="factura">
+      <div id="factura" style="background: #ffffff; width: 100%; max-width: 700px; padding: 40px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-size: 14px; position: relative; color: #000;">
 <div class="factura-header">
           <div style="display: flex; align-items: center; gap: 15px;">
             <img id="lblLogo" src="img/logo.png" alt="Logo" style="max-height: 60px; display: block; border-radius: 4px;">
@@ -677,15 +689,29 @@
     }
 
     function generarPDF() {
+      actualizarFactura();
       const elemento = document.getElementById('factura');
       const numFactura = document.getElementById('inputNumFactura').value || 'FAC-000';
 
       const opciones = {
-        margin:       10,
+        margin:       [10, 10, 10, 10],
         filename:     `Factura_${numFactura}.pdf`,
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        html2canvas:  {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#ffffff',
+          letterRendering: true,
+          scrollY: 0,
+          scrollX: 0,
+          width: elemento.offsetWidth,
+          height: elemento.offsetHeight,
+          windowWidth: elemento.offsetWidth,
+          windowHeight: elemento.offsetHeight
+        },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
       };
 
       html2pdf().set(opciones).from(elemento).save();
