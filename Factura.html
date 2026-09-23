@@ -159,7 +159,7 @@
     #factura {
       background: #ffffff;
       width: 100%;
-      max-width: 750px;
+      max-width: 700px;
       box-sizing: border-box;
       padding: 20px;
       font-size: 14px;
@@ -808,8 +808,7 @@
       }
 
       try {
-        elemento.style.width = '100%';
-        elemento.style.maxWidth = '750px';
+        elemento.style.maxWidth = '700px';
         elemento.style.boxShadow = 'none';
         elemento.style.padding = '20px';
         elemento.style.boxSizing = 'border-box';
@@ -823,25 +822,24 @@
 
         const ocultar = [navbar, footer, formPanel].filter(el => el);
         ocultar.forEach(el => el.style.display = 'none');
-        if (previewPanel) previewPanel.style.width = '750px';
+        if (previewPanel) previewPanel.style.width = '700px';
         if (previewPanel) previewPanel.style.margin = '0 auto';
         if (previewPanel) previewPanel.style.padding = '0';
         if (previewPanel) previewPanel.style.background = '#ffffff';
 
         const opt = {
-          margin:       5,
+          margin:       10,
           filename:     `Factura_${numFactura}.pdf`,
           image:        { type: 'jpeg', quality: 0.98 },
           html2canvas:  {
             scale: 2,
             useCORS: true,
             logging: false,
-            letterRendering: true,
-            windowWidth: elemento.scrollWidth
+            letterRendering: true
           },
           jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
-        html2pdf().set(opt).from(elemento).save().then(function() {
+        html2pdf().from(elemento).set(opt).save().then(function() {
           ocultar.forEach(el => el.style.display = '');
           if (previewPanel) previewPanel.style.width = '';
           if (previewPanel) previewPanel.style.margin = '';
