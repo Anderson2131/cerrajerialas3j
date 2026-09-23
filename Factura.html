@@ -25,14 +25,10 @@
         body { padding-top: 0 !important; }
         nav.navbar, footer.footer, .form-panel { display: none !important; }
         .container { display: block !important; }
-        #factura { box-shadow: none !important; padding: 20px !important; width: 180mm !important; max-width: 180mm !important; }
+        #factura { box-shadow: none !important; padding: 20px !important; }
         .invoice-table th { background: #f8f9fa !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
         .invoice-table td { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
         #lblFirma { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
-    }
-    @page {
-        margin: 10mm;
-        size: A4;
     }
     html, body {
       margin: 0 !important;
@@ -132,8 +128,8 @@
     }
 #factura {
       background: #ffffff;
-      width: 180mm;
-      max-width: 180mm;
+      width: 100%;
+      max-width: 100%;
       padding: 20px;
       border-radius: 4px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -142,7 +138,6 @@
       color: #000;
       box-sizing: border-box;
       overflow: visible;
-      margin: 0 auto;
     }
 .invoice-table { width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #ddd; table-layout: fixed; }
         .invoice-table th { background: #f8f9fa; border-bottom: 2px solid #dee2e6; padding: 10px; text-align: left; border: 1px solid #ddd; word-wrap: break-word; }
@@ -699,26 +694,33 @@
       const elemento = document.getElementById('factura');
       const numFactura = document.getElementById('inputNumFactura').value || 'FAC-000';
 
-      const opt = {
-        margin:       [10, 10, 10, 10],
-        filename:     `Factura_${numFactura}.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  {
-          scale: 2,
-          useCORS: true,
-          allowTaint: true,
-          backgroundColor: '#ffffff',
-          letterRendering: true,
-          scrollY: 0,
-          scrollX: 0,
-          windowWidth: 1000,
-          logging: false,
-          removeContainer: true
-        },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-
-      html2pdf().set(opt).from(elemento).save();
+      html2canvas(elemento, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff',
+        letterRendering: true,
+        scrollY: 0,
+        scrollX: 0,
+        windowWidth: 1200,
+        logging: false,
+        removeContainer: true,
+        width: elemento.scrollWidth,
+        height: elemento.scrollHeight
+      }).then(function(canvas) {
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+        const ratio = Math.min((pdfWidth - 20) / imgWidth, (pdfHeight - 20) / imgHeight);
+        const imgX = (pdfWidth - imgWidth * ratio) / 2;
+        const imgY = 10;
+        pdf.addImage(imgData, 'JPEG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+        pdf.save(`Factura_${numFactura}.pdf`);
+      });
     }
 
     function cargarFirma(event) {
