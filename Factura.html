@@ -158,13 +158,15 @@
     }
     #factura {
       background: #ffffff;
-      width: 100%;
-      max-width: 100%;
-      padding: 30px;
+      width: 794px;
+      max-width: 794px;
+      box-sizing: border-box;
+      padding: 20px;
       font-size: 14px;
       position: relative;
       color: #000;
       margin: 0 auto;
+      box-shadow: none;
     }
     .factura-header {
       display: flex;
@@ -730,6 +732,7 @@
     });
 </script>
 
+    <script>
     function actualizarFactura() {
       document.getElementById('lblFecha').innerText = `Fecha: ${document.getElementById('inputFecha').value}`;
       document.getElementById('lblCliente').innerText = document.getElementById('inputCliente').value || 'Cliente General';
@@ -805,24 +808,49 @@
       }
 
       try {
+        elemento.style.width = '794px';
+        elemento.style.maxWidth = '794px';
+        elemento.style.boxShadow = 'none';
+        elemento.style.padding = '20px';
+        elemento.style.boxSizing = 'border-box';
+        elemento.style.background = '#ffffff';
+        elemento.style.margin = '0 auto';
+
+        const navbar = document.querySelector('nav.navbar');
+        const footer = document.querySelector('footer.footer');
+        const formPanel = document.querySelector('.form-panel');
+        const previewPanel = document.querySelector('.preview-panel');
+
+        const ocultar = [navbar, footer, formPanel].filter(el => el);
+        ocultar.forEach(el => el.style.display = 'none');
+        if (previewPanel) previewPanel.style.width = '794px';
+        if (previewPanel) previewPanel.style.margin = '0 auto';
+        if (previewPanel) previewPanel.style.padding = '0';
+        if (previewPanel) previewPanel.style.background = '#ffffff';
+
         const opt = {
-          margin:       [5, 5, 5, 5],
+          margin:       5,
           filename:     `Factura_${numFactura}.pdf`,
-          image:        { type: 'jpeg', quality: 0.95 },
+          image:        { type: 'jpeg', quality: 0.98 },
           html2canvas:  {
             scale: 2,
             useCORS: true,
-            allowTaint: true,
-            backgroundColor: '#ffffff',
-            letterRendering: true,
-            scrollY: 0,
-            scrollX: 0,
-            windowWidth: 1000,
-            logging: false
+            logging: false,
+            letterRendering: true
           },
           jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
-        html2pdf().set(opt).from(elemento).save();
+        html2pdf().set(opt).from(elemento).save().then(function() {
+          ocultar.forEach(el => el.style.display = '');
+          if (previewPanel) previewPanel.style.width = '';
+          if (previewPanel) previewPanel.style.margin = '';
+          if (previewPanel) previewPanel.style.padding = '';
+          if (previewPanel) previewPanel.style.background = '';
+        }).catch(function(err) {
+          ocultar.forEach(el => el.style.display = '');
+          console.error('PDF error:', err);
+          alert('Error al generar PDF: ' + err.message);
+        });
       } catch(e) {
         console.error('PDF error:', e);
         alert('Error al generar PDF: ' + e.message);
