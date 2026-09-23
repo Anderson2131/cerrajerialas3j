@@ -28,6 +28,7 @@
         #factura { box-shadow: none !important; padding: 20px !important; }
         .invoice-table th { background: #f8f9fa !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
         .invoice-table td { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
+        #lblFirma { mix-blend-mode: multiply !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
     }
     @page {
         margin: 15mm;
@@ -374,7 +375,7 @@
          <div style="display: flex; justify-content: space-between; width: 100%; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
            <div style="text-align: left;">
              <p style="margin: 0; font-weight: 600;">Firmado por:</p>
-             <img id="lblFirma" src="img/Firma.png" alt="Firma" style="width: auto; max-height: 120px; object-fit: contain; display: block; margin-top: 5px; background: transparent; border: none; border-radius: 0; box-shadow: none; mix-blend-mode: multiply; filter: contrast(120%) brightness(95%);">
+             <img id="lblFirma" src="img/Firma.png" alt="Firma" style="width: auto; max-height: 120px; object-fit: contain; display: block; margin-top: 5px; background: transparent; border: none; border-radius: 0; box-shadow: none;">
            </div>
          </div>
 </div>
@@ -763,8 +764,7 @@
           firmaImg.style.border = 'none';
           firmaImg.style.borderRadius = '0';
           firmaImg.style.boxShadow = 'none';
-          firmaImg.style.mixBlendMode = 'multiply';
-          firmaImg.style.filter = 'contrast(120%) brightness(95%)';
+          firmaImg.style.marginTop = '5px';
         };
         img.src = e.target.result;
       };
@@ -791,7 +791,6 @@
 
     function procesarFirmaDefecto() {
       const img = new Image();
-      img.crossOrigin = 'anonymous';
       img.onload = function() {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
@@ -808,7 +807,7 @@
           if (r > 240 && g > 240 && b > 240 && a > 240) {
             data[i + 3] = 0;
           } else {
-            data[i + 3] = Math.min(255, a + 50);
+            data[i + 3] = Math.min(255, a + 60);
           }
         }
         ctx.putImageData(imageData, 0, 0);
@@ -823,8 +822,18 @@
         firmaImg.style.border = 'none';
         firmaImg.style.borderRadius = '0';
         firmaImg.style.boxShadow = 'none';
-        firmaImg.style.mixBlendMode = 'multiply';
-        firmaImg.style.filter = 'contrast(120%) brightness(95%)';
+        firmaImg.style.marginTop = '5px';
+      };
+      img.onerror = function() {
+        const firmaImg = document.getElementById('lblFirma');
+        firmaImg.style.display = 'block';
+        firmaImg.style.width = 'auto';
+        firmaImg.style.maxHeight = '120px';
+        firmaImg.style.objectFit = 'contain';
+        firmaImg.style.background = 'transparent';
+        firmaImg.style.border = 'none';
+        firmaImg.style.borderRadius = '0';
+        firmaImg.style.boxShadow = 'none';
       };
       img.src = 'img/Firma.png';
     }
