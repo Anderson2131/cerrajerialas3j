@@ -25,10 +25,14 @@
         body { padding-top: 0 !important; }
         nav.navbar, footer.footer, .form-panel { display: none !important; }
         .container { display: block !important; }
-        #factura { box-shadow: none !important; padding: 20px !important; }
+        #factura { box-shadow: none !important; padding: 20px !important; width: 100% !important; max-width: 100% !important; }
         .invoice-table th { background: #f8f9fa !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
         .invoice-table td { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
         #lblFirma { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
+    }
+    @page {
+        margin: 5mm;
+        size: A4;
     }
     html, body {
       margin: 0 !important;
@@ -138,6 +142,7 @@
       color: #000;
       box-sizing: border-box;
       overflow: visible;
+      margin: 0 auto;
     }
 .invoice-table { width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #ddd; table-layout: fixed; }
         .invoice-table th { background: #f8f9fa; border-bottom: 2px solid #dee2e6; padding: 10px; text-align: left; border: 1px solid #ddd; word-wrap: break-word; }
@@ -705,14 +710,14 @@
           filename:     `Factura_${numFactura}.pdf`,
           image:        { type: 'jpeg', quality: 0.95 },
           html2canvas:  {
-            scale: 2,
+            scale: 1,
             useCORS: true,
             allowTaint: true,
             backgroundColor: '#ffffff',
             letterRendering: true,
             scrollY: 0,
             scrollX: 0,
-            windowWidth: 1000,
+            windowWidth: 2000,
             logging: false
           },
           jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
