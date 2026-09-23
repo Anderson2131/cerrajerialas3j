@@ -158,8 +158,8 @@
     }
     #factura {
       background: #ffffff;
-      width: 794px;
-      max-width: 794px;
+      width: 100%;
+      max-width: 750px;
       box-sizing: border-box;
       padding: 20px;
       font-size: 14px;
@@ -808,8 +808,8 @@
       }
 
       try {
-        elemento.style.width = '794px';
-        elemento.style.maxWidth = '794px';
+        elemento.style.width = '100%';
+        elemento.style.maxWidth = '750px';
         elemento.style.boxShadow = 'none';
         elemento.style.padding = '20px';
         elemento.style.boxSizing = 'border-box';
@@ -823,7 +823,7 @@
 
         const ocultar = [navbar, footer, formPanel].filter(el => el);
         ocultar.forEach(el => el.style.display = 'none');
-        if (previewPanel) previewPanel.style.width = '794px';
+        if (previewPanel) previewPanel.style.width = '750px';
         if (previewPanel) previewPanel.style.margin = '0 auto';
         if (previewPanel) previewPanel.style.padding = '0';
         if (previewPanel) previewPanel.style.background = '#ffffff';
@@ -836,7 +836,8 @@
             scale: 2,
             useCORS: true,
             logging: false,
-            letterRendering: true
+            letterRendering: true,
+            windowWidth: elemento.scrollWidth
           },
           jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
