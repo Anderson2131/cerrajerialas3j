@@ -374,7 +374,7 @@
          <div style="display: flex; justify-content: space-between; width: 100%; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
            <div style="text-align: left;">
              <p style="margin: 0; font-weight: 600;">Firmado por:</p>
-             <img id="lblFirma" src="" alt="Firma" style="width: 100%; max-width: 350px; max-height: 50px; object-fit: contain; display: none; margin-top: 5px; background: transparent; border: none; border-radius: 0;">
+             <img id="lblFirma" src="" alt="Firma" style="width: auto; max-height: 70px; object-fit: contain; display: none; margin-top: 5px; background: transparent; border: none; border-radius: 0; box-shadow: none; mix-blend-mode: multiply; filter: contrast(120%) brightness(95%);">
            </div>
          </div>
 </div>
@@ -755,13 +755,16 @@
           const firmaImg = document.getElementById('lblFirma');
           firmaImg.src = processedUrl;
           firmaImg.style.display = 'block';
-          firmaImg.style.width = '100%';
-          firmaImg.style.maxWidth = '350px';
-          firmaImg.style.maxHeight = '50px';
+          firmaImg.style.width = 'auto';
+          firmaImg.style.maxWidth = 'none';
+          firmaImg.style.maxHeight = '70px';
           firmaImg.style.objectFit = 'contain';
+          firmaImg.style.background = 'transparent';
           firmaImg.style.border = 'none';
           firmaImg.style.borderRadius = '0';
-          firmaImg.style.background = 'transparent';
+          firmaImg.style.boxShadow = 'none';
+          firmaImg.style.mixBlendMode = 'multiply';
+          firmaImg.style.filter = 'contrast(120%) brightness(95%)';
         };
         img.src = e.target.result;
       };
