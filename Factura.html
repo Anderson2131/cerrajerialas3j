@@ -25,13 +25,13 @@
         body { padding-top: 0 !important; }
         nav.navbar, footer.footer, .form-panel { display: none !important; }
         .container { display: block !important; }
-        #factura { box-shadow: none !important; padding: 20px !important; }
+        #factura { box-shadow: none !important; padding: 20px !important; width: 180mm !important; max-width: 180mm !important; }
         .invoice-table th { background: #f8f9fa !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
         .invoice-table td { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
-        #lblFirma { mix-blend-mode: multiply !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
+        #lblFirma { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
     }
     @page {
-        margin: 15mm;
+        margin: 10mm;
         size: A4;
     }
     html, body {
@@ -132,8 +132,8 @@
     }
 #factura {
       background: #ffffff;
-      width: 100%;
-      max-width: 100%;
+      width: 180mm;
+      max-width: 180mm;
       padding: 20px;
       border-radius: 4px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -142,6 +142,7 @@
       color: #000;
       box-sizing: border-box;
       overflow: visible;
+      margin: 0 auto;
     }
 .invoice-table { width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #ddd; table-layout: fixed; }
         .invoice-table th { background: #f8f9fa; border-bottom: 2px solid #dee2e6; padding: 10px; text-align: left; border: 1px solid #ddd; word-wrap: break-word; }
@@ -699,7 +700,7 @@
       const numFactura = document.getElementById('inputNumFactura').value || 'FAC-000';
 
       const opt = {
-        margin:       [15, 10, 10, 10],
+        margin:       [10, 10, 10, 10],
         filename:     `Factura_${numFactura}.pdf`,
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  {
@@ -710,7 +711,7 @@
           letterRendering: true,
           scrollY: 0,
           scrollX: 0,
-          windowWidth: 800,
+          windowWidth: 1000,
           logging: false,
           removeContainer: true
         },
