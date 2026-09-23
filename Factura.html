@@ -157,16 +157,15 @@
       align-items: center;
     }
     #factura {
-      background: #ffffff;
-      width: 100%;
-      max-width: 700px;
-      box-sizing: border-box;
-      padding: 20px;
-      font-size: 14px;
-      position: relative;
-      color: #000;
-      margin: 0 auto;
-      box-shadow: none;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 auto !important;
+      padding: 20px !important;
+      box-sizing: border-box !important;
+      background-color: #ffffff !important;
+      position: relative !important;
+      left: 0 !important;
+      right: 0 !important;
     }
     .factura-header {
       display: flex;
@@ -808,12 +807,15 @@
       }
 
       try {
-        elemento.style.maxWidth = '700px';
-        elemento.style.boxShadow = 'none';
+        elemento.style.width = '100%';
+        elemento.style.maxWidth = '100%';
+        elemento.style.margin = '0 auto';
         elemento.style.padding = '20px';
         elemento.style.boxSizing = 'border-box';
         elemento.style.background = '#ffffff';
-        elemento.style.margin = '0 auto';
+        elemento.style.position = 'relative';
+        elemento.style.left = '0';
+        elemento.style.right = '0';
 
         const navbar = document.querySelector('nav.navbar');
         const footer = document.querySelector('footer.footer');
@@ -822,7 +824,7 @@
 
         const ocultar = [navbar, footer, formPanel].filter(el => el);
         ocultar.forEach(el => el.style.display = 'none');
-        if (previewPanel) previewPanel.style.width = '700px';
+        if (previewPanel) previewPanel.style.width = '100%';
         if (previewPanel) previewPanel.style.margin = '0 auto';
         if (previewPanel) previewPanel.style.padding = '0';
         if (previewPanel) previewPanel.style.background = '#ffffff';
