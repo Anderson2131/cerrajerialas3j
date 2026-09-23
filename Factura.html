@@ -16,7 +16,90 @@
         window.location.href = 'admin-login.html';
     }
   </script>
+  <link rel="stylesheet" href="style.css?v=13">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      display: none;
+    }
+    .mobile-menu-overlay.active {
+      display: block;
+    }
+    .nav-menu-mobile {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0F172A;
+      z-index: 1000;
+      flex-direction: column;
+      padding: 80px 20px 20px;
+      list-style: none;
+      display: none;
+    }
+    .nav-menu-mobile.active {
+      display: flex;
+    }
+    .nav-menu-mobile .nav-link {
+      color: #fff;
+      font-size: 18px;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .nav-menu-mobile .nav-link:hover {
+      color: #F59E0B;
+    }
+    .mobile-menu-close-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    .floating-buttons-left {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 998;
+    }
+    .floating-buttons-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 998;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .phone-float, .whatsapp-float, .facebook-float {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 20px;
+      text-decoration: none;
+    }
+    .phone-float { background: #0d6efd; }
+    .whatsapp-float { background: #25D366; }
+    .facebook-float { background: #1877F2; }
+    @media (max-width: 768px) {
+      .floating-buttons-container, .floating-buttons-left { display: none; }
+    }
     html, body {
       margin: 0;
       padding: 0;
@@ -242,36 +325,112 @@
 </head>
 <body>
 
+<!-- Navbar Premium - Transparente con Scroll Dinámico -->
 <nav class="navbar" id="navbar">
-    <a href="index.html" class="nav-logo">
-        <img src="img/logo.png" alt="Cerrajería Las 3J Logo" class="nav-logo-img">
-        <div class="nav-logo-text">
-            <span class="logo-main">CERRAJERÍA LAS 3J</span>
-            <span class="logo-tagline">SEGURIDAD QUE TE DA TRANQUILIDAD</span>
-        </div>
-    </a>
-    <ul class="nav-menu" id="navMenu">
-        <li><a href="index.html" class="nav-link">Inicio</a></li>
-        <li><a href="servicios.html" class="nav-link">Servicios</a></li>
-        <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
-        <li><a href="#contacto" class="nav-link">Contacto</a></li>
-        <li class="nav-menu-cta">
-            <a href="https://wa.me/573181714657" class="nav-menu-cta-btn">
-                <i class="fab fa-whatsapp"></i> WhatsApp 24/7
-            </a>
-        </li>
-        <li>
-            <a href="tel:+573181714657" class="nav-phone">
-                <i class="fas fa-phone"></i> Llamar ahora
-            </a>
-        </li>
-        <li>
-            <a href="#" onclick="logout()" class="nav-phone" style="color: #ef4444;">
-                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-            </a>
-        </li>
-    </ul>
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <div class="nav-logo-icon nav-logo-icon-clickable" id="logoIconTrigger" title="Click para ver el logo">
+                <img src="img/logo.png" alt="Cerrajería Las 3J Logo" class="nav-logo-img">
+            </div>
+            <div class="nav-logo-text">
+                <span class="logo-main">CERRAJERÍA LAS 3J</span>
+                <span class="logo-tagline">SEGURIDAD QUE TE DA TRANQUILIDAD</span>
+            </div>
+        </a>
+        
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link">Inicio</a></li>
+            <li><a href="servicios.html" class="nav-link">Servicios</a></li>
+            <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+            <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            <li class="nav-menu-cta">
+                <a href="https://wa.me/573181714657" class="nav-menu-cta-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp 24/7
+                </a>
+            </li>
+            <li>
+                <a href="tel:+573181714657" class="nav-phone">
+                    <i class="fas fa-phone"></i>
+                    Llamar ahora
+                </a>
+            </li>
+            <li class="nav-menu-cta">
+                <a href="admin-login.html" class="nav-menu-cta-btn" style="background: linear-gradient(135deg, #0d6efd, #0b5ed7);">
+                    <i class="fas fa-file-invoice"></i>
+                    Factura
+                </a>
+            </li>
+        </ul>
+        
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" onclick="toggleMobileMenuInline()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
 </nav>
+
+<!-- Menú móvil fuera del navbar para evitar stacking context -->
+<ul class="nav-menu-mobile" id="navMenuMobile" style="display: none;">
+    <li class="mobile-menu-close">
+        <button class="mobile-menu-close-btn" onclick="toggleMobileMenuInline()">
+            <i class="fas fa-times"></i>
+        </button>
+    </li>
+    <li>
+        <a href="index.html" class="nav-link active">
+            <span class="link-icon"><i class="fas fa-home"></i></span>
+            <span class="link-text">Inicio</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="servicios.html" class="nav-link">
+            <span class="link-icon"><i class="fas fa-tools"></i></span>
+            <span class="link-text">Servicios</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="nosotros.html" class="nav-link">
+            <span class="link-icon"><i class="fas fa-users"></i></span>
+            <span class="link-text">Nosotros</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="#contacto" class="nav-link">
+            <span class="link-icon"><i class="fas fa-envelope"></i></span>
+            <span class="link-text">Contacto</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li class="nav-menu-cta">
+        <a href="https://wa.me/573181714657" class="nav-menu-cta-btn">
+            <span class="link-icon"><i class="fab fa-whatsapp"></i></span>
+            <span class="link-text">WhatsApp 24/7</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="tel:+573181714657" class="nav-phone">
+            <span class="link-icon"><i class="fas fa-phone"></i></span>
+            <span class="link-text">Llamar ahora</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li class="nav-menu-cta">
+        <a href="admin-login.html" class="nav-menu-cta-btn" style="background: linear-gradient(135deg, #0d6efd, #0b5ed7);">
+            <span class="link-icon"><i class="fas fa-file-invoice"></i></span>
+            <span class="link-text">Factura</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+</ul>
+
+<!-- Overlay oscuro para menú móvil -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 
 <div class="container">
     <div class="form-panel">
@@ -377,6 +536,7 @@
     </div>
 </div>
 
+<!-- Footer con diseño glassmorphism -->
 <footer class="footer">
     <div class="footer-container">
         <div class="glass-footer-card">
@@ -389,6 +549,7 @@
                     Servicio profesional de cerrajería 24/7. Atención inmediata y garantizada.
                 </p>
             </div>
+            
             <div class="footer-links-section">
                 <div class="footer-column">
                     <h4>Servicios</h4>
@@ -400,16 +561,19 @@
                         <li><a href="servicios.html"><i class="fas fa-chevron-right"></i> Instalación de seguridad</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-column">
                     <h4>Empresa</h4>
                     <ul class="footer-links">
                         <li><a href="nosotros.html"><i class="fas fa-chevron-right"></i> Nosotros</a></li>
-                        <li><a href="Factura.html"><i class="fas fa-file-invoice"></i> Factura</a></li>
+                        <li><a href="admin-login.html"><i class="fas fa-file-invoice"></i> Factura</a></li>
                         <li><a href="#clientes"><i class="fas fa-chevron-right"></i> Clientes</a></li>
                         <li><a href="#resultados"><i class="fas fa-chevron-right"></i> Resultados</a></li>
+                        <li><a href="#cobertura"><i class="fas fa-chevron-right"></i> Cobertura</a></li>
                         <li><a href="#seguridad"><i class="fas fa-chevron-right"></i> Garantía</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-column">
                     <h4>Contacto</h4>
                     <ul class="footer-links">
@@ -421,6 +585,7 @@
                     </ul>
                 </div>
             </div>
+            
             <div class="footer-bottom">
                 <div class="footer-contact-row">
                     <div class="footer-contact-item">
@@ -449,10 +614,121 @@
 </footer>
 
 <script>
-    const fechaInput = document.getElementById('inputFecha');
-    const hoy = new Date().toISOString().split('T')[0];
-    fechaInput.value = hoy;
-    document.getElementById('lblFecha').innerText = `Fecha: ${fechaInput.value}`;
+    function logout() {
+        localStorage.removeItem('admin_authenticated');
+        localStorage.removeItem('admin_login_time');
+        window.location.href = 'admin-login.html';
+    }
+    
+    let isMenuAnimating = false;
+    let savedScrollY = 0;
+
+    function toggleMobileMenuInline() {
+        if (isMenuAnimating) return;
+        isMenuAnimating = true;
+
+        requestAnimationFrame(() => {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const navMenuMobile = document.getElementById('navMenuMobile');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const floatingButtons = document.querySelector('.floating-buttons-container');
+            const floatingButtonsLeft = document.querySelector('.floating-buttons-left');
+            
+            if (mobileMenuToggle && navMenuMobile) {
+                const isOpening = !navMenuMobile.classList.contains('active');
+
+                mobileMenuToggle.classList.toggle('active');
+                navMenuMobile.classList.toggle('active');
+                document.body.classList.toggle('mobile-menu-open');
+
+                if (isOpening) {
+                    navMenuMobile.style.display = 'flex';
+                } else {
+                    navMenuMobile.style.display = 'none';
+                }
+                
+                if (mobileMenuOverlay) {
+                    mobileMenuOverlay.classList.toggle('active');
+                }
+                
+                if (floatingButtons) {
+                    if (isOpening) {
+                        floatingButtons.style.display = 'none';
+                    } else {
+                        floatingButtons.style.display = 'flex';
+                    }
+                }
+                
+                if (floatingButtonsLeft) {
+                    if (isOpening) {
+                        floatingButtonsLeft.style.display = 'none';
+                    } else {
+                        floatingButtonsLeft.style.display = 'flex';
+                    }
+                }
+                
+                if (isOpening) {
+                    savedScrollY = window.scrollY;
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.position = 'fixed';
+                    document.body.style.top = `-${savedScrollY}px`;
+                    document.body.style.width = '100%';
+                } else {
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    document.body.style.top = '';
+                    document.body.style.width = '';
+                    window.scrollTo(0, savedScrollY);
+                }
+            }
+            
+            isMenuAnimating = false;
+        });
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const navMenuMobile = document.getElementById('navMenuMobile');
+        
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.addEventListener('click', function(e) {
+                if (e.target === mobileMenuOverlay) {
+                    toggleMobileMenuInline();
+                }
+            });
+        }
+        
+        if (navMenuMobile) {
+            navMenuMobile.addEventListener('click', function(e) {
+                const link = e.target.closest('.nav-link');
+                if (link && navMenuMobile.classList.contains('active')) {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            toggleMobileMenuInline();
+                            setTimeout(() => {
+                                target.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }, 300);
+                        }
+                    } else {
+                        toggleMobileMenuInline();
+                    }
+                }
+            });
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenuMobile && navMenuMobile.classList.contains('active')) {
+                toggleMobileMenuInline();
+            }
+        }, { passive: true });
+    });
+</script>
 
     function actualizarFactura() {
       document.getElementById('lblFecha').innerText = `Fecha: ${document.getElementById('inputFecha').value}`;
