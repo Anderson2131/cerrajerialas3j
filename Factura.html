@@ -17,7 +17,6 @@
     }
   </script>
   <style>
-    * { box-sizing: border-box; }
     html, body {
       margin: 0;
       padding: 0;
@@ -39,6 +38,8 @@
       margin: 0 auto;
       margin-top: 20px;
       width: 100%;
+      background-color: #ced4da;
+      border-radius: 12px;
       padding: 20px;
     }
     .form-panel {
@@ -65,6 +66,9 @@
     .preview-panel {
       flex: 1;
       min-width: 380px;
+      background: #e9ecef;
+      padding: 20px;
+      border-radius: 8px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -144,7 +148,9 @@
     }
     @media print {
       body { padding-top: 0 !important; }
-      nav.navbar, footer.footer, .form-panel, .container, .preview-panel { display: none !important; }
+      nav.navbar, footer.footer, .form-panel { display: none !important; }
+      .container { display: block !important; padding: 0 !important; background: transparent !important; border-radius: 0 !important; }
+      .preview-panel { display: block !important; padding: 0 !important; background: transparent !important; border-radius: 0 !important; }
       #factura {
         display: block !important;
         box-shadow: none !important;
