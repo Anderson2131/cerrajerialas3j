@@ -374,7 +374,7 @@
          <div style="display: flex; justify-content: space-between; width: 100%; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
            <div style="text-align: left;">
              <p style="margin: 0; font-weight: 600;">Firmado por:</p>
-             <img id="lblFirma" src="" alt="Firma" style="max-height: 50px; display: none; margin-top: 5px;">
+             <img id="lblFirma" src="" alt="Firma" style="width: 100%; max-width: 350px; max-height: 50px; object-fit: contain; display: none; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
            </div>
          </div>
 </div>
@@ -733,6 +733,10 @@
         const img = document.getElementById('lblFirma');
         img.src = e.target.result;
         img.style.display = 'block';
+        img.style.width = '100%';
+        img.style.maxWidth = '350px';
+        img.style.maxHeight = '50px';
+        img.style.objectFit = 'contain';
       };
       reader.readAsDataURL(file);
     }
