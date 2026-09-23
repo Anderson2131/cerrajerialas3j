@@ -694,33 +694,28 @@
       const elemento = document.getElementById('factura');
       const numFactura = document.getElementById('inputNumFactura').value || 'FAC-000';
 
-      html2canvas(elemento, {
-        scale: 2,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: '#ffffff',
-        letterRendering: true,
-        scrollY: 0,
-        scrollX: 0,
-        windowWidth: 1200,
-        logging: false,
-        removeContainer: true,
-        width: elemento.scrollWidth,
-        height: elemento.scrollHeight
-      }).then(function(canvas) {
-        const imgData = canvas.toDataURL('image/jpeg', 0.95);
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = pdf.internal.pageSize.getHeight();
-        const imgWidth = canvas.width;
-        const imgHeight = canvas.height;
-        const ratio = Math.min((pdfWidth - 20) / imgWidth, (pdfHeight - 20) / imgHeight);
-        const imgX = (pdfWidth - imgWidth * ratio) / 2;
-        const imgY = 10;
-        pdf.addImage(imgData, 'JPEG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
-        pdf.save(`Factura_${numFactura}.pdf`);
-      });
+      try {
+        const opt = {
+          margin:       [5, 5, 5, 5],
+          filename:     `Factura_${numFactura}.pdf`,
+          image:        { type: 'jpeg', quality: 0.95 },
+          html2canvas:  {
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: '#ffffff',
+            letterRendering: true,
+            scrollY: 0,
+            scrollX: 0,
+            windowWidth: 1000,
+            logging: false
+          },
+          jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(elemento).save();
+      } catch(e) {
+        console.error('PDF error:', e);
+      }
     }
 
     function cargarFirma(event) {
