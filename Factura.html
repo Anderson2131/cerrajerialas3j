@@ -694,6 +694,11 @@
       const elemento = document.getElementById('factura');
       const numFactura = document.getElementById('inputNumFactura').value || 'FAC-000';
 
+      if (typeof html2pdf === 'undefined') {
+        alert('Error: html2pdf no está cargado. Recarga la página.');
+        return;
+      }
+
       try {
         const opt = {
           margin:       [5, 5, 5, 5],
@@ -715,6 +720,7 @@
         html2pdf().set(opt).from(elemento).save();
       } catch(e) {
         console.error('PDF error:', e);
+        alert('Error al generar PDF: ' + e.message);
       }
     }
 
