@@ -4,11 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Generador de Facturas PDF</title>
+  <!-- Librería html2pdf.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
+    // Verificar autenticación de administrador
     if (localStorage.getItem('admin_authenticated') !== 'true') {
         window.location.href = 'admin-login.html';
     }
+    
+    // Verificar tiempo de sesión (24 horas)
     const loginTime = localStorage.getItem('admin_login_time');
     if (loginTime && (Date.now() - parseInt(loginTime)) > 24 * 60 * 60 * 1000) {
         localStorage.removeItem('admin_authenticated');
@@ -16,31 +20,84 @@
         window.location.href = 'admin-login.html';
     }
   </script>
-  <style>
+<style>
+    @media print {
+        body { padding-top: 0 !important; }
+        nav.navbar, footer.footer, .form-panel { display: none !important; }
+        .container { display: block !important; }
+        #factura { box-shadow: none !important; padding: 20px !important; width: 100% !important; max-width: 100% !important; }
+        .invoice-table th { background: #f8f9fa !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
+        .invoice-table td { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
+        #lblFirma { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
+    }
+    @page {
+        margin: 5mm;
+        size: A4;
+    }
     html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      font-family: 'Poppins', sans-serif;
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      overflow-x: hidden !important;
     }
     body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background-color: #f4f6f8;
-      padding-top: 90px;
+      min-height: 100vh !important;
+      display: flex !important;
+      flex-direction: column !important;
+      background-color: #f4f6f8 !important;
+      padding-top: 90px !important;
+    }
+    footer.footer {
+      width: 100vw !important;
+      margin-left: calc(-50vw + 50%) !important;
+      background-color: #1a1e29 !important;
+      margin-top: auto !important;
+      padding-bottom: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+    .footer-container {
+      max-width: 100% !important;
+      margin: 0 auto !important;
+      background-color: transparent !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
+    }
+    .glass-footer-card {
+      background: rgba(255, 255, 255, 0.03) !important;
+      backdrop-filter: blur(15px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      border-radius: 28px !important;
+      padding: clamp(1.5rem, 3vh, 2.5rem) clamp(2rem, 4vw, 3rem) !important;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: clamp(1.5rem, 3vh, 2.5rem) !important;
+      width: 100% !important;
+      max-width: 1200px !important;
+      margin: 0 auto !important;
+      color: #fff !important;
+    }
+    .footer-brand h3, .footer-description, .footer-column h4, .footer-links li a, .footer-copyright p, .footer-contact-item span {
+      color: #fff !important;
+    }
+    .footer-links li a i {
+      color: #F59E0B !important;
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
     }
     .container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-      margin-top: 20px;
-      width: 100%;
-      background-color: #ced4da;
-      border-radius: 12px;
-      padding: 20px;
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 20px !important;
+      max-width: 1200px !important;
+      margin: 0 auto !important;
+      margin-top: 20px !important;
+      width: 100% !important;
+      background-color: #ced4da !important;
+      border-radius: 12px !important;
+      padding: 20px !important;
     }
     .form-panel {
       flex: 1;
@@ -73,226 +130,166 @@
       flex-direction: column;
       align-items: center;
     }
-    #factura {
+#factura {
       background: #ffffff;
       width: 100%;
       max-width: 100%;
-      padding: 30px;
-      font-size: 14px;
+      padding: 20px;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-size: 13px;
       position: relative;
       color: #000;
+      box-sizing: border-box;
+      overflow: visible;
       margin: 0 auto;
     }
-    .factura-header {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 2px solid #333;
-      padding-bottom: 15px;
-      margin-bottom: 20px;
-    }
-    .company-title { font-size: 22px; font-weight: bold; color: #1a252f; margin: 0; }
-    .factura-title { font-size: 20px; color: #0d6efd; font-weight: bold; text-align: right; }
-    .details-grid {
-      display: flex;
-      justify-content: space-between;
-      margin: 20px 0;
-    }
-    .invoice-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-      table-layout: fixed;
-    }
-    .invoice-table th {
-      background: #f8f9fa;
-      border: 1px solid #333;
-      padding: 10px;
-      text-align: left;
-      font-weight: 600;
-    }
-    .invoice-table td {
-      border: 1px solid #333;
-      padding: 10px;
-    }
-    .invoice-table th:nth-child(1),
-    .invoice-table td:nth-child(1) { width: 50%; }
-    .invoice-table th:nth-child(2),
-    .invoice-table td:nth-child(2) { width: 15%; text-align: center; }
-    .invoice-table th:nth-child(3),
-    .invoice-table td:nth-child(3) { width: 17.5%; text-align: right; }
-    .invoice-table th:nth-child(4),
-    .invoice-table td:nth-child(4) { width: 17.5%; text-align: right; }
-    .totals {
-      margin-top: 20px;
-      text-align: right;
-      font-size: 15px;
-    }
-    .totals p { margin: 5px 0; }
-    .grand-total { font-size: 18px; font-weight: bold; color: #0d6efd; }
-    .signature-area {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 1px solid #333;
-    }
-    .signature-area img {
-      width: auto;
-      max-height: 100px;
-      object-fit: contain;
-      background: transparent;
-      border: none;
-      border-radius: 0;
-      box-shadow: none;
-    }
-    @media print {
-      body { padding-top: 0 !important; }
-      nav.navbar, footer.footer, .form-panel { display: none !important; }
-      .container { display: block !important; padding: 0 !important; background: transparent !important; border-radius: 0 !important; }
-      .preview-panel { display: block !important; padding: 0 !important; background: transparent !important; border-radius: 0 !important; }
-      #factura {
-        display: block !important;
-        box-shadow: none !important;
-        padding: 20px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        background: #fff !important;
-        color: #000 !important;
-      }
-      .invoice-table th { background: #f8f9fa !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
-      .invoice-table td { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
-      .signature-area img { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
-    }
-    @page {
-      margin: 5mm;
-      size: A4;
-    }
-    nav.navbar {
-      background: #0F172A;
-      padding: 15px 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    }
-    nav.navbar .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-    nav.navbar .nav-logo img { max-height: 50px; border-radius: 8px; }
-    nav.navbar .nav-logo-text { color: #fff; }
-    nav.navbar .nav-logo-text .logo-main { font-size: 18px; font-weight: 700; display: block; }
-    nav.navbar .nav-logo-text .logo-tagline { font-size: 11px; color: rgba(255,255,255,0.6); display: block; }
-    nav.navbar ul.nav-menu { display: flex; list-style: none; gap: 20px; margin: 0; padding: 0; }
-    nav.navbar ul.nav-menu li a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; }
-    nav.navbar ul.nav-menu li a:hover { color: #F59E0B; }
-    nav.navbar .nav-menu-cta-btn { background: linear-gradient(135deg, #D97706, #F59E0B) !important; color: #fff !important; padding: 8px 20px !important; border-radius: 8px !important; font-weight: 600 !important; }
-    nav.navbar .nav-phone { color: rgba(255,255,255,0.8) !important; text-decoration: none !important; font-size: 14px !important; }
-    @media (max-width: 768px) {
-      nav.navbar ul.nav-menu { display: none; }
-      .container { flex-direction: column; }
-    }
-    footer.footer {
-      width: 100vw;
-      margin-left: calc(-50vw + 50%);
-      background-color: #1a1e29;
-      margin-top: auto;
-      padding-bottom: 0;
-      border-radius: 0;
-      box-shadow: none;
-    }
-    .footer-container { max-width: 100%; margin: 0 auto; background-color: transparent; border-radius: 0; padding: 0; }
-    .glass-footer-card {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 28px;
-      padding: clamp(1.5rem, 3vh, 2.5rem) clamp(2rem, 4vw, 3rem);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-      display: flex;
-      flex-direction: column;
-      gap: clamp(1.5rem, 3vh, 2.5rem);
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      color: #fff;
-    }
-    .footer-brand h3, .footer-description, .footer-column h4, .footer-links li a, .footer-copyright p, .footer-contact-item span { color: #fff !important; }
-    .footer-links li a i { color: #F59E0B !important; }
-    .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); }
-    .footer-links { list-style: none; padding: 0; }
-    .footer-links li { margin-bottom: 8px; }
-    .footer-links li a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; }
-    .footer-links li a:hover { color: #F59E0B; }
-    .footer-contact-item { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.6); font-size: 13px; margin-bottom: 8px; }
-    .footer-contact-item i { color: #F59E0B; }
-    .footer-copyright { text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-    .footer-copyright p { color: rgba(255,255,255,0.4); font-size: 12px; margin: 0; }
+.invoice-table { width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #ddd; table-layout: fixed; }
+        .invoice-table th { background: #f8f9fa; border-bottom: 2px solid #dee2e6; padding: 10px; text-align: left; border: 1px solid #ddd; word-wrap: break-word; }
+        .invoice-table td { border-bottom: 1px solid #eee; padding: 10px; border: 1px solid #ddd; word-wrap: break-word; }
+        .totals { margin-top: 20px; text-align: right; font-size: 15px; }
+        .totals p { margin: 5px 0; }
+        .grand-total { font-size: 18px; font-weight: bold; color: #0d6efd; }
+        .factura-header { display: flex; justify-content: space-between; border-bottom: 2px solid #eee; padding-bottom: 20px; }
+        .company-title { font-size: 22px; font-weight: bold; color: #1a252f; margin: 0; }
+        .factura-title { font-size: 20px; color: #0d6efd; font-weight: bold; text-align: right; }
+        .details-grid { display: flex; justify-content: space-between; margin: 25px 0; }
   </style>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
+    <!-- Google Fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="style.css?v=13">
+  </head>
+  <body>
 
+<!-- Navbar Premium - Transparente con Scroll Dinámico -->
 <nav class="navbar" id="navbar">
-    <a href="index.html" class="nav-logo">
-        <img src="img/logo.png" alt="Cerrajería Las 3J Logo" class="nav-logo-img">
-        <div class="nav-logo-text">
-            <span class="logo-main">CERRAJERÍA LAS 3J</span>
-            <span class="logo-tagline">SEGURIDAD QUE TE DA TRANQUILIDAD</span>
-        </div>
-    </a>
-    <ul class="nav-menu" id="navMenu">
-        <li><a href="index.html" class="nav-link">Inicio</a></li>
-        <li><a href="servicios.html" class="nav-link">Servicios</a></li>
-        <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
-        <li><a href="#contacto" class="nav-link">Contacto</a></li>
-        <li class="nav-menu-cta">
-            <a href="https://wa.me/573181714657" class="nav-menu-cta-btn">
-                <i class="fab fa-whatsapp"></i> WhatsApp 24/7
-            </a>
-        </li>
-        <li>
-            <a href="tel:+573181714657" class="nav-phone">
-                <i class="fas fa-phone"></i> Llamar ahora
-            </a>
-        </li>
-        <li>
-            <a href="#" onclick="logout()" class="nav-phone" style="color: #ef4444;">
-                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-            </a>
-        </li>
-    </ul>
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <div class="nav-logo-icon nav-logo-icon-clickable" id="logoIconTrigger" title="Click para ver el logo">
+                <img src="img/logo.png" alt="Cerrajería Las 3J Logo" class="nav-logo-img">
+            </div>
+            <div class="nav-logo-text">
+                <span class="logo-main">CERRAJERÍA LAS 3J</span>
+                <span class="logo-tagline">SEGURIDAD QUE TE DA TRANQUILIDAD</span>
+            </div>
+        </a>
+        
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link">Inicio</a></li>
+            <li><a href="servicios.html" class="nav-link">Servicios</a></li>
+            <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+            <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            <li class="nav-menu-cta">
+                <a href="https://wa.me/573181714657" class="nav-menu-cta-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp 24/7
+                </a>
+            </li>
+            <li>
+                <a href="tel:+573181714657" class="nav-phone">
+                    <i class="fas fa-phone"></i>
+                    Llamar ahora
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="logout()" class="nav-phone" style="color: #ef4444;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Cerrar Sesión
+                </a>
+            </li>
+        </ul>
+        
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" onclick="toggleMobileMenuInline()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
 </nav>
 
-<div class="container">
+<!-- Menú móvil fuera del navbar para evitar stacking context -->
+<ul class="nav-menu-mobile" id="navMenuMobile" style="display: none;">
+    <li class="mobile-menu-close">
+        <button class="mobile-menu-close-btn" onclick="toggleMobileMenuInline()">
+            <i class="fas fa-times"></i>
+        </button>
+    </li>
+    <li>
+        <a href="index.html" class="nav-link active">
+            <span class="link-icon"><i class="fas fa-home"></i></span>
+            <span class="link-text">Inicio</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="servicios.html" class="nav-link">
+            <span class="link-icon"><i class="fas fa-tools"></i></span>
+            <span class="link-text">Servicios</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="nosotros.html" class="nav-link">
+            <span class="link-icon"><i class="fas fa-users"></i></span>
+            <span class="link-text">Nosotros</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="#contacto" class="nav-link">
+            <span class="link-icon"><i class="fas fa-envelope"></i></span>
+            <span class="link-text">Contacto</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li class="nav-menu-cta">
+        <a href="https://wa.me/573181714657" class="nav-menu-cta-btn">
+            <span class="link-icon"><i class="fab fa-whatsapp"></i></span>
+            <span class="link-text">WhatsApp 24/7</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+    <li>
+        <a href="tel:+573181714657" class="nav-phone">
+            <span class="link-icon"><i class="fas fa-phone"></i></span>
+            <span class="link-text">Llamar ahora</span>
+            <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+        </a>
+    </li>
+</ul>
+
+<!-- Overlay oscuro para menú móvil -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+  <div class="container">
+    <!-- Formulario para ingresar datos -->
     <div class="form-panel">
       <h2>Datos de la Factura</h2>
+      
       <div class="form-group">
         <label>Fecha</label>
         <input type="date" id="inputFecha" oninput="actualizarFactura()">
       </div>
+
       <div class="form-group">
         <label>Logo Empresarial</label>
         <input type="file" id="inputLogo" accept="image/*" style="display: none;" onchange="cargarLogo(event)">
         <button class="btn btn-secondary" type="button" onclick="document.getElementById('inputLogo').click()">📁 Agregar Logo</button>
       </div>
+
       <div class="form-group">
         <label>Nombre del Cliente</label>
         <input type="text" id="inputCliente" value="Juan Pérez" oninput="actualizarFactura()">
       </div>
+
       <div class="form-group">
         <label>Número de Factura</label>
         <input type="text" id="inputNumFactura" value="FAC-001" oninput="actualizarFactura()">
       </div>
+
       <div class="form-group" style="margin-top: 15px;">
         <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
           <input type="checkbox" id="inputConIva" checked onchange="actualizarFactura()">
@@ -304,10 +301,12 @@
         <input type="file" id="inputFirma" accept="image/*" style="display: none;" onchange="cargarFirma(event)">
         <button class="btn btn-secondary" type="button" onclick="document.getElementById('inputFirma').click()">📁 Agregar Firma</button>
       </div>
+
       <div class="form-group">
         <label>Porcentaje de IVA (%)</label>
         <input type="number" id="inputPorcentajeIva" value="19" min="0" step="0.1" oninput="actualizarFactura()">
       </div>
+
       <h3>Ítems / Servicios</h3>
       <table class="items-table-form" id="itemsForm">
         <thead>
@@ -325,13 +324,15 @@
           </tr>
         </tbody>
       </table>
+      
       <button class="btn btn-secondary" onclick="agregarFila()">+ Agregar Ítem</button>
       <button class="btn" onclick="generarPDF()" style="margin-top: 20px;">Descargar en PDF</button>
     </div>
 
+    <!-- Vista previa editable que se imprimirá -->
     <div class="preview-panel">
-      <div id="factura">
-        <div class="factura-header">
+      <div id="factura" style="background: #ffffff; width: 100%; max-width: 100%; padding: 20px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-size: 13px; position: relative; color: #000; box-sizing: border-box; overflow: visible;">
+<div class="factura-header">
           <div style="display: flex; align-items: center; gap: 15px;">
             <img id="lblLogo" src="img/logo.png" alt="Logo" style="max-height: 60px; display: block; border-radius: 4px;">
             <div>
@@ -345,12 +346,14 @@
             <p style="margin: 5px 0 0 0; text-align: right; color: #666;" id="lblFecha"></p>
           </div>
         </div>
+
         <div class="details-grid">
           <div>
             <strong>Facturado a:</strong>
             <p id="lblCliente" style="margin: 5px 0 0 0;">Juan Pérez</p>
           </div>
         </div>
+
         <table class="invoice-table">
           <thead>
             <tr>
@@ -360,23 +363,27 @@
               <th style="text-align: right;">Total</th>
             </tr>
           </thead>
-          <tbody id="lblTablaItems"></tbody>
+          <tbody id="lblTablaItems">
+            <!-- Se llena dinámicamente -->
+          </tbody>
         </table>
+
         <div class="totals">
-          <p>Subtotal: <span id="lblSubtotal">COP$ 0.00</span></p>
-          <p id="ivaRow">IVA (<span id="lblPorcentajeIva">19</span>%): <span id="lblIva">COP$ 0.00</span></p>
-          <p class="grand-total">Total: <span id="lblTotal">COP$ 0.00</span></p>
-        </div>
-        <div class="signature-area">
-          <div>
-            <p style="margin: 0; font-weight: 600;">Firmado por:</p>
-            <img id="lblFirma" src="img/Firma.png" alt="Firma">
-          </div>
-        </div>
-      </div>
-    </div>
+<p>Subtotal: <span id="lblSubtotal">COP$ 0.00</span></p>
+            <p id="ivaRow">IVA (<span id="lblPorcentajeIva">19</span>%): <span id="lblIva">COP$ 0.00</span></p>
+            <p class="grand-total">Total: <span id="lblTotal">COP$ 0.00</span></p>
+         </div>
+         <div style="display: flex; justify-content: space-between; width: 100%; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+           <div style="text-align: left;">
+             <p style="margin: 0; font-weight: 600;">Firmado por:</p>
+             <img id="lblFirma" src="img/Firma.png" alt="Firma" style="width: auto; max-height: 120px; object-fit: contain; display: block; margin-top: 5px; background: transparent; border: none; border-radius: 0; box-shadow: none;">
+           </div>
+         </div>
+</div>
+  </div>
 </div>
 
+<!-- Footer con diseño glassmorphism -->
 <footer class="footer">
     <div class="footer-container">
         <div class="glass-footer-card">
@@ -389,6 +396,7 @@
                     Servicio profesional de cerrajería 24/7. Atención inmediata y garantizada.
                 </p>
             </div>
+            
             <div class="footer-links-section">
                 <div class="footer-column">
                     <h4>Servicios</h4>
@@ -400,6 +408,7 @@
                         <li><a href="servicios.html"><i class="fas fa-chevron-right"></i> Instalación de seguridad</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-column">
                     <h4>Empresa</h4>
                     <ul class="footer-links">
@@ -407,9 +416,11 @@
                         <li><a href="Factura.html"><i class="fas fa-file-invoice"></i> Factura</a></li>
                         <li><a href="#clientes"><i class="fas fa-chevron-right"></i> Clientes</a></li>
                         <li><a href="#resultados"><i class="fas fa-chevron-right"></i> Resultados</a></li>
+                        <li><a href="#cobertura"><i class="fas fa-chevron-right"></i> Cobertura</a></li>
                         <li><a href="#seguridad"><i class="fas fa-chevron-right"></i> Garantía</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-column">
                     <h4>Contacto</h4>
                     <ul class="footer-links">
@@ -421,6 +432,7 @@
                     </ul>
                 </div>
             </div>
+            
             <div class="footer-bottom">
                 <div class="footer-contact-row">
                     <div class="footer-contact-item">
@@ -448,6 +460,170 @@
     </div>
 </footer>
 
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    
+    <!-- Función inline para menú móvil - Optimizada -->
+    <script>
+    let isMenuAnimating = false;
+    let savedScrollY = 0;
+
+    function toggleMobileMenuInline() {
+        if (isMenuAnimating) return;
+        isMenuAnimating = true;
+
+        requestAnimationFrame(() => {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const navMenuMobile = document.getElementById('navMenuMobile');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const floatingButtons = document.querySelector('.floating-buttons-container');
+            const floatingButtonsLeft = document.querySelector('.floating-buttons-left');
+            
+            if (mobileMenuToggle && navMenuMobile) {
+                const isOpening = !navMenuMobile.classList.contains('active');
+
+                mobileMenuToggle.classList.toggle('active');
+                navMenuMobile.classList.toggle('active');
+                document.body.classList.toggle('mobile-menu-open');
+
+                if (isOpening) {
+                    navMenuMobile.style.display = 'flex';
+                } else {
+                    navMenuMobile.style.display = 'none';
+                }
+                
+                if (mobileMenuOverlay) {
+                    mobileMenuOverlay.classList.toggle('active');
+                }
+                
+                if (floatingButtons) {
+                    if (isOpening) {
+                        floatingButtons.style.display = 'none';
+                    } else {
+                        floatingButtons.style.display = 'flex';
+                    }
+                }
+                
+                if (floatingButtonsLeft) {
+                    if (isOpening) {
+                        floatingButtonsLeft.style.display = 'none';
+                    } else {
+                        floatingButtonsLeft.style.display = 'flex';
+                    }
+                }
+                
+                if (isOpening) {
+                    savedScrollY = window.scrollY;
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.position = 'fixed';
+                    document.body.style.top = `-${savedScrollY}px`;
+                    document.body.style.width = '100%';
+                } else {
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    document.body.style.top = '';
+                    document.body.style.width = '';
+                    window.scrollTo(0, savedScrollY);
+                }
+            }
+            
+            isMenuAnimating = false;
+        });
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const navMenuMobile = document.getElementById('navMenuMobile');
+        
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.addEventListener('click', function(e) {
+                if (e.target === mobileMenuOverlay) {
+                    toggleMobileMenuInline();
+                }
+            });
+        }
+        
+        if (navMenuMobile) {
+            navMenuMobile.addEventListener('click', function(e) {
+                const link = e.target.closest('.nav-link');
+                if (link && navMenuMobile.classList.contains('active')) {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            toggleMobileMenuInline();
+                            setTimeout(() => {
+                                target.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }, 300);
+                        }
+                    } else {
+                        toggleMobileMenuInline();
+                    }
+                }
+            });
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenuMobile && navMenuMobile.classList.contains('active')) {
+                toggleMobileMenuInline();
+            }
+        }, { passive: true });
+    });
+    </script>
+    
+    <!-- Logo Zoom Modal -->
+    <div class="logo-zoom-overlay" id="logoZoomOverlay">
+        <div class="logo-zoom-content">
+            <img src="img/logo.png" alt="Cerrajería Las 3J Logo" class="logo-zoom-image">
+        </div>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const logoTrigger = document.getElementById('logoIconTrigger');
+        const logoOverlay = document.getElementById('logoZoomOverlay');
+        if (!logoTrigger || !logoOverlay) return;
+        function openLogoZoom(e) { e.preventDefault(); e.stopPropagation(); logoOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeLogoZoom() { logoOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+        logoTrigger.addEventListener('click', openLogoZoom);
+        logoOverlay.addEventListener('click', function(e) { if (e.target === logoOverlay) closeLogoZoom(); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && logoOverlay.classList.contains('active')) closeLogoZoom(); });
+    });
+    </script>
+    
+    <!-- Force video autoplay on mobile (iOS Safari workaround) -->
+    <script>
+    (function() {
+        function forcePlay(video) {
+            if (!video) return;
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(function() {});
+            }
+        }
+        const videos = document.querySelectorAll('video');
+        videos.forEach(function(video) {
+            if (video.readyState >= 2) {
+                forcePlay(video);
+            } else {
+                video.addEventListener('loadeddata', function() { forcePlay(video); }, { once: true });
+                video.addEventListener('canplay', function() { forcePlay(video); }, { once: true });
+            }
+        });
+        const resume = function() {
+            videos.forEach(forcePlay);
+            window.removeEventListener('touchstart', resume);
+            window.removeEventListener('scroll', resume);
+        };
+        window.addEventListener('touchstart', resume, { once: true, passive: true });
+        window.addEventListener('scroll', resume, { once: true, passive: true });
+    })();
+    </script>
+    
 <script>
     const fechaInput = document.getElementById('inputFecha');
     const hoy = new Date().toISOString().split('T')[0];
@@ -534,14 +710,14 @@
           filename:     `Factura_${numFactura}.pdf`,
           image:        { type: 'jpeg', quality: 0.95 },
           html2canvas:  {
-            scale: 2,
+            scale: 1,
             useCORS: true,
             allowTaint: true,
             backgroundColor: '#ffffff',
             letterRendering: true,
             scrollY: 0,
             scrollX: 0,
-            windowWidth: 1000,
+            windowWidth: 2000,
             logging: false
           },
           jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -564,7 +740,7 @@
           firmaImg.style.display = 'block';
           firmaImg.style.width = 'auto';
           firmaImg.style.maxWidth = 'none';
-          firmaImg.style.maxHeight = '100px';
+          firmaImg.style.maxHeight = '120px';
           firmaImg.style.objectFit = 'contain';
           firmaImg.style.background = 'transparent';
           firmaImg.style.border = 'none';
@@ -601,7 +777,7 @@
         firmaImg.style.display = 'block';
         firmaImg.style.width = 'auto';
         firmaImg.style.maxWidth = 'none';
-        firmaImg.style.maxHeight = '100px';
+        firmaImg.style.maxHeight = '120px';
         firmaImg.style.objectFit = 'contain';
         firmaImg.style.background = 'transparent';
         firmaImg.style.border = 'none';
@@ -616,6 +792,6 @@
 
     actualizarFactura();
     procesarFirmaDefecto();
-</script>
+  </script>
 </body>
 </html>
